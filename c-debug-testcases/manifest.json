@@ -1,0 +1,182 @@
+[
+  {
+    "set": 1,
+    "q": 1,
+    "difficulty": "Easy",
+    "title": "Sum of Array Elements",
+    "topic": "Loops & Arrays",
+    "folder": "set1_q1_easy_sum-of-array-elements",
+    "explanation": "The loop condition `i < n - 1` stops one element early, so the last array element (50) never gets added to the sum."
+  },
+  {
+    "set": 1,
+    "q": 2,
+    "difficulty": "Easy",
+    "title": "Equality Check",
+    "topic": "Operators",
+    "folder": "set1_q2_easy_equality-check",
+    "explanation": "A single `=` assigns b to a instead of comparing them. The assignment expression evaluates to 10 (truthy), so the if-branch always runs \u2014 and as a side effect, a now silently holds the value 10."
+  },
+  {
+    "set": 1,
+    "q": 3,
+    "difficulty": "Medium",
+    "title": "Reverse a String",
+    "topic": "Strings & Arrays",
+    "folder": "set1_q3_medium_reverse-a-string",
+    "explanation": "Looping all the way to `len` swaps every pair TWICE \u2014 once on the way through, once again when the loop reaches the mirrored index \u2014 so the string ends up back where it started."
+  },
+  {
+    "set": 1,
+    "q": 4,
+    "difficulty": "Medium",
+    "title": "Find the Maximum",
+    "topic": "Arrays",
+    "folder": "set1_q4_medium_find-the-maximum",
+    "explanation": "Starting `max` at 0 only works if the array actually contains something bigger than 0. Here every element is negative, so nothing ever beats 0 and the wrong \"maximum\" is printed."
+  },
+  {
+    "set": 1,
+    "q": 5,
+    "difficulty": "Hard",
+    "title": "Recursive Factorial",
+    "topic": "Recursion",
+    "folder": "set1_q5_hard_recursive-factorial",
+    "explanation": "The base case returns 0 instead of 1. Since every level multiplies by the result of the level below it, that single wrong base case collapses the entire product to 0."
+  },
+  {
+    "set": 2,
+    "q": 1,
+    "difficulty": "Easy",
+    "title": "Even or Odd",
+    "topic": "Conditionals",
+    "folder": "set2_q1_easy_even-or-odd",
+    "explanation": "The condition itself is correct, but the two print statements were swapped \u2014 so an even number prints \"Odd\" and an odd number prints \"Even\"."
+  },
+  {
+    "set": 2,
+    "q": 2,
+    "difficulty": "Easy",
+    "title": "Multiplication Table",
+    "topic": "Loops",
+    "folder": "set2_q2_easy_multiplication-table",
+    "explanation": "The loop condition `i < 10` stops after i = 9, so the table only prints 9 lines and the \"5 x 10 = 50\" line is missing."
+  },
+  {
+    "set": 2,
+    "q": 3,
+    "difficulty": "Medium",
+    "title": "Count Vowels",
+    "topic": "Strings",
+    "folder": "set2_q3_medium_count-vowels",
+    "explanation": "\"a\" (double quotes) is a string literal \u2014 a pointer \u2014 while 'a' (single quotes) is a char. Comparing a char to a string literal compares a small number to a memory address, which is never true, so the vowel count stays 0."
+  },
+  {
+    "set": 2,
+    "q": 4,
+    "difficulty": "Medium",
+    "title": "Swap Two Numbers",
+    "topic": "Functions & Pointers",
+    "folder": "set2_q4_medium_swap-two-numbers",
+    "explanation": "C passes arguments by value, so `swap` receives copies of a and b. It swaps its own local copies, but main's original a and b never change."
+  },
+  {
+    "set": 2,
+    "q": 5,
+    "difficulty": "Hard",
+    "title": "Bubble Sort",
+    "topic": "Sorting",
+    "folder": "set2_q5_hard_bubble-sort",
+    "explanation": "The swap condition uses `<` instead of `>`, so larger elements get pushed to the front instead of the back \u2014 the array ends up sorted in descending order, not ascending."
+  },
+  {
+    "set": 3,
+    "q": 1,
+    "difficulty": "Easy",
+    "title": "Celsius to Fahrenheit",
+    "topic": "Operators",
+    "folder": "set3_q1_easy_celsius-to-fahrenheit",
+    "explanation": "Without parentheses, `32 * 9.0 / 5.0` is computed first and added to c directly \u2014 c itself never gets multiplied by 9/5, so the formula is completely wrong despite looking almost right."
+  },
+  {
+    "set": 3,
+    "q": 2,
+    "difficulty": "Easy",
+    "title": "Prime Number Check",
+    "topic": "Loops",
+    "folder": "set3_q2_easy_prime-number-check",
+    "explanation": "The loop starts at i = 1, and every number is divisible by 1. That makes `isPrime` false on the very first check \u2014 so no number, not even an actual prime, is ever reported as prime."
+  },
+  {
+    "set": 3,
+    "q": 3,
+    "difficulty": "Medium",
+    "title": "Palindrome Check",
+    "topic": "Strings",
+    "folder": "set3_q3_medium_palindrome-check",
+    "explanation": "`len - i` is off by one: when i = 0 this reads `s[len]`, which is the string's null terminator, not its last character. Comparing a real character against '\\0' always fails, so even a true palindrome gets rejected."
+  },
+  {
+    "set": 3,
+    "q": 4,
+    "difficulty": "Medium",
+    "title": "Linear Search",
+    "topic": "Arrays & Functions",
+    "folder": "set3_q4_medium_linear-search",
+    "explanation": "The two return values are swapped: finding the target returns -1 (normally the \"not found\" signal), and falling through the loop returns i. The function reports failure when it actually succeeded."
+  },
+  {
+    "set": 3,
+    "q": 5,
+    "difficulty": "Hard",
+    "title": "Fibonacci (Recursive)",
+    "topic": "Recursion",
+    "folder": "set3_q5_hard_fibonacci-recursive",
+    "explanation": "The second base case returns 2 instead of 1. Since fib(1) feeds into every later term through the recursive sum, that one wrong base case throws off every Fibonacci number from fib(2) onward."
+  },
+  {
+    "set": 4,
+    "q": 1,
+    "difficulty": "Easy",
+    "title": "Sum of Digits",
+    "topic": "Loops & Operators",
+    "folder": "set4_q1_easy_sum-of-digits",
+    "explanation": "`/` and `%` were mixed up. `n / 10` strips off the last digit (used correctly to shrink n), but `n % 10` is what actually extracts the last digit \u2014 the sum ends up adding shrinking quotients instead of digits."
+  },
+  {
+    "set": 4,
+    "q": 2,
+    "difficulty": "Easy",
+    "title": "Leap Year Check",
+    "topic": "Conditionals",
+    "folder": "set4_q2_easy_leap-year-check",
+    "explanation": "The century rule is backwards: `year % 100 == 0` should be `!= 0`. A year divisible by 100 is only a leap year if it's also divisible by 400 \u2014 1900 fails that check, but the bug reports it as a leap year anyway."
+  },
+  {
+    "set": 4,
+    "q": 3,
+    "difficulty": "Medium",
+    "title": "Sum of a 2D Array",
+    "topic": "Arrays",
+    "folder": "set4_q3_medium_sum-of-a-2d-array",
+    "explanation": "The inner loop bound uses `rows` (2) instead of `cols` (4), so only the first 2 columns of each row get added \u2014 the 3rd and 4th columns are silently skipped."
+  },
+  {
+    "set": 4,
+    "q": 4,
+    "difficulty": "Medium",
+    "title": "Manual String Copy",
+    "topic": "Strings & Pointers",
+    "folder": "set4_q4_medium_manual-string-copy",
+    "explanation": "The loop copies the characters correctly but never writes a null terminator afterward. `printf` keeps reading past \"hello\" until it happens to hit a zero byte, printing leftover characters still sitting in the buffer."
+  },
+  {
+    "set": 4,
+    "q": 5,
+    "difficulty": "Hard",
+    "title": "Reverse Array with Pointers",
+    "topic": "Pointers",
+    "folder": "set4_q5_hard_reverse-array-with-pointers",
+    "explanation": "A proper swap needs a temporary variable. Here `*start` is overwritten first, so its original value is lost before `*end` can be set to it \u2014 the \"swap\" just duplicates one value into both positions."
+  }
+]
