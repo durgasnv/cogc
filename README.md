@@ -6,14 +6,14 @@ Everything an AI needs to build a quiz platform/UI from this question bank.
 
 | File | What it is | Use it for |
 |---|---|---|
-| `quiz-data.json` | Nested: `meta` + 15 sets, each with 35 questions | The main import. Best when the UI picks a set and runs it |
-| `quiz-questions-flat.json` | Flat array of all 525 question objects | Seeding a DB, filtering by category, random-mix modes |
-| `quiz-types.ts` | TypeScript interfaces matching the JSON | Drop into a TS/React project for type safety |
-| `cook-or-get-cooked-round2-mcq.md` | Human-readable version with answers | Printing, host sheets, manual review |
+| `round2-quiz-data.json` | Nested: `meta` + 15 sets, each with 35 questions | The main import. Best when the UI picks a set and runs it |
+| `round2-quiz-questions-flat.json` | Flat array of all 525 question objects | Seeding a DB, filtering by category, random-mix modes |
+| `round2-quiz-types.ts` | TypeScript interfaces matching the JSON | Drop into a TS/React project for type safety |
+| `round2-mcq.md` | Human-readable version with answers | Printing, host sheets, manual review |
 
 ## Data shape
 
-`quiz-data.json`:
+`round2-quiz-data.json`:
 
 ```
 {
@@ -78,7 +78,7 @@ A `Question`:
 
 ## Prompt to paste into your AI builder
 
-> Build a quiz web app using the attached `quiz-data.json`.
+> Build a quiz web app using the attached `round2-quiz-data.json`.
 >
 > **Data:** 15 sets (A–O) of 35 multiple-choice questions each, 4 options per question. `correctOptionId` is the source of truth for grading. Question text may contain inline code wrapped in backticks — render those as monospace `<code>` spans. Content is UTF-8 with superscripts and symbols.
 >
