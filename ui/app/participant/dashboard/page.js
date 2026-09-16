@@ -102,20 +102,56 @@ export default function ParticipantDashboard() {
 
         {/* Tester Mode Banner */}
         {isTestTeam && (
-          <div className="card mb-24" style={{ border: '2px solid var(--gold)', background: 'rgba(245,197,24,0.06)', padding: 18, borderRadius: 12 }}>
-            <div className="row-between" style={{ flexWrap: 'wrap', gap: 12 }}>
+          <div
+            className="card mb-24"
+            style={{
+              border: '2px solid var(--gold)',
+              background: 'linear-gradient(135deg, rgba(245, 197, 24, 0.15) 0%, rgba(20, 20, 20, 0.95) 100%)',
+              padding: '20px 24px',
+              borderRadius: 14,
+              boxShadow: '0 0 35px rgba(245, 197, 24, 0.25)',
+            }}
+          >
+            <div className="row-between" style={{ flexWrap: 'wrap', gap: 14, alignItems: 'center' }}>
               <div>
-                <span className="chip gold" style={{ fontWeight: 'bold' }}>🧪 DEV TESTER ACTIVE</span>
-                <p className="small muted" style={{ margin: '6px 0 0', lineHeight: 1.5 }}>
-                  Logged in as <strong>{team.name}</strong>. All phase restrictions &amp; lockouts are bypassed for end-to-end testing.
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: 18,
+                      letterSpacing: '0.06em',
+                      padding: '4px 12px',
+                      borderRadius: 6,
+                      background: 'var(--gold)',
+                      color: '#000',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    🧪 TESTER MODE ACTIVE
+                  </span>
+                  <span className="mono small" style={{ color: 'var(--gold)' }}>
+                    Team: <strong>{team.name}</strong>
+                  </span>
+                </div>
+                <p className="small muted" style={{ margin: 0, lineHeight: 1.5 }}>
+                  Lockouts &amp; eliminations are completely bypassed. You can freely launch Round 2, Round 3, and Round 5.
                 </p>
               </div>
               <button
-                className="btn btn-ghost btn-sm"
+                className="btn btn-sm"
                 onClick={handleResetMyData}
-                style={{ borderColor: 'var(--gold)', color: 'var(--gold)', fontFamily: 'var(--font-mono)', fontWeight: 'bold' }}
+                style={{
+                  background: 'var(--gold)',
+                  color: '#000',
+                  fontWeight: 'bold',
+                  fontFamily: 'var(--font-display)',
+                  fontSize: 16,
+                  letterSpacing: '0.03em',
+                  padding: '10px 20px',
+                  boxShadow: '0 0 20px rgba(245, 197, 24, 0.35)',
+                }}
               >
-                🔄 Reset My Test Scores &amp; Re-Test
+                🔄 Reset My Scores &amp; Re-Test All Phases
               </button>
             </div>
           </div>

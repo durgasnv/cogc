@@ -44,7 +44,12 @@ export async function GET(req) {
     eliminatedInRound = 5;
   }
 
-  const isTestTeam = session.name === 'Dev Tester' || session.id === 'dev-tester' || session.name.toLowerCase().includes('tester');
+  const isTestTeam =
+    process.env.NODE_ENV !== 'production' ||
+    session.name === 'Dev Tester' ||
+    session.id === 'dev-tester' ||
+    session.name?.toLowerCase().includes('tester') ||
+    session.name?.toLowerCase().includes('test');
   if (isTestTeam) {
     isEliminated = false;
     eliminatedInRound = null;
