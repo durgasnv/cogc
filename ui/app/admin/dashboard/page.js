@@ -917,7 +917,7 @@ function Round4Tab({ teams }) {
     await sendControl('reset_scores');
   }
 
-  const categories = ['All', 'Telugu Movies 🎬', 'Tech Actions', 'Tech Concepts', 'Tech Blunders'];
+  const categories = ['All', 'Telugu Movies 🎬', 'Simple Tech 💻'];
 
   return (
     <div>
