@@ -37,13 +37,58 @@ export default function AdminDashboard() {
     }
   }, [router]);
 
-  useEffect(() => { loadTeams(); }, [loadTeams]);
+  async function handlePurgeTestData() {
+    const confirmation = prompt('⚠️ DANGER: Type "RESET" to purge all test scores across all rounds.\n\n(Registered team names will remain safe):');
+    if (confirmation !== 'RESET') {
+      alert('Reset cancelled.');
+      return;
+    }
+    try {
+      const res = await api('/api/admin/reset', {
+        method: 'POST',
+        body: JSON.stringify({ confirm: 'RESET_TOURNAMENT_CONFIRMED' }),
+      });
+      alert(`✅ ${res.message}`);
+      loadTeams();
+    } catch (e) {
+      alert(`Error resetting: ${e.message}`);
+    }
+  }
+
+  function handleExportCSV() {
+    window.location.href = '/api/admin/export';
+  }
+
+  function openProjector() {
+    window.open('/projector', '_blank');
+  }
 
   return (
     <div className="page">
       <nav className="topnav">
         <span className="brand">COOK <span>OR GET COOKED</span> &middot; ADMIN ARENA</span>
-        <div className="nav-actions">
+        <div className="nav-actions" style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+          <button
+            className="btn btn-ghost btn-sm"
+            onClick={openProjector}
+            style={{ borderColor: 'var(--gold)', color: 'var(--gold)', fontWeight: 700 }}
+          >
+            📽️ Projector Arena
+          </button>
+          <button
+            className="btn btn-ghost btn-sm"
+            onClick={handleExportCSV}
+            style={{ borderColor: 'var(--green)', color: 'var(--green)', fontWeight: 700 }}
+          >
+            📥 Export CSV
+          </button>
+          <button
+            className="btn btn-ghost btn-sm"
+            onClick={handlePurgeTestData}
+            style={{ borderColor: 'var(--red)', color: 'var(--red)', fontWeight: 700 }}
+          >
+            ⚠️ Reset Test Data
+          </button>
           <span className="chip">{teams.length} Teams Registered</span>
         </div>
       </nav>
@@ -573,14 +618,40 @@ function Round5Tab({ teams }) {
   const [thresholdInput, setThresholdInput] = useState('');
   const [settingsBusy, setSettingsBusy] = useState(false);
   const [error, setError] = useState('');
+  const [suitcaseInput, setSuitcaseInput] = useState('');
+  const [suitcaseMsg, setSuitcaseMsg] = useState('');
 
   const loadBoard = useCallback(async () => {
     try {
       const res = await api('/api/admin/round5/leaderboard');
       setData(res);
       setThresholdInput(res.threshold === null ? '' : String(res.threshold));
+
+      // Also load current suitcase code
+      const scRes = await api('/api/admin/suitcase');
+      if (scRes?.code) setSuitcaseInput(scRes.code);
     } catch (e) { setError(e.message); }
   }, []);
+
+  async function saveSuitcaseCode() {
+    if (suitcaseInput.length !== 9) {
+      alert('Combination must be exactly 9 digits.');
+      return;
+    }
+    setSettingsBusy(true);
+    setSuitcaseMsg('');
+    try {
+      const res = await api('/api/admin/suitcase', {
+        method: 'POST',
+        body: JSON.stringify({ code: suitcaseInput }),
+      });
+      setSuitcaseMsg(`✅ Combination saved: ${res.code}`);
+      setTimeout(() => setSuitcaseMsg(''), 4000);
+    } catch (e) {
+      alert(`Failed to save: ${e.message}`);
+    }
+    setSettingsBusy(false);
+  }
 
   useEffect(() => {
     loadBoard();
@@ -632,6 +703,32 @@ function Round5Tab({ teams }) {
 
   return (
     <div>
+      {/* 9-Digit Suitcase Lock Configuration */}
+      <div className="card mb-24" style={{ border: '2px solid var(--gold)', boxShadow: '0 0 25px rgba(255,187,0,0.15)' }}>
+        <p className="eyebrow mb-12" style={{ color: 'var(--gold)' }}>🔒 Grand Finale Suitcase Combination Setting</p>
+        <p className="muted small mb-16" style={{ maxWidth: 680 }}>
+          Set the secret 9-digit combination derived from the 3 C debugging problems. When finalist teams input this code on their screens, the server will verify and trigger the grand unlock!
+        </p>
+        <div className="row" style={{ gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+          <input
+            type="text"
+            maxLength={9}
+            placeholder="9 digits (e.g. 742189035)"
+            value={suitcaseInput}
+            onChange={(e) => setSuitcaseInput(e.target.value.replace(/\D/g, ''))}
+            style={{ width: 240, fontSize: 18, fontFamily: 'monospace', fontWeight: 'bold', letterSpacing: 3, textAlign: 'center' }}
+          />
+          <button
+            className="btn btn-primary"
+            onClick={saveSuitcaseCode}
+            disabled={settingsBusy || suitcaseInput.length !== 9}
+          >
+            Save 9-Digit Combination
+          </button>
+          {suitcaseMsg && <span className="mono small" style={{ color: 'var(--green)', fontWeight: 'bold' }}>{suitcaseMsg}</span>}
+        </div>
+      </div>
+
       {/* Cutoff & Results Settings */}
       <div className="card mb-24">
         <p className="eyebrow mb-16">Round 5 Cutoff &amp; Result Controls</p>
