@@ -264,18 +264,26 @@ function PlayInner() {
   if (status === 'ready') {
     return (
       <div className="center-screen">
-        <div className="card card-lg text-center" style={{ maxWidth: 500, border: '1px solid rgba(229, 9, 20, 0.4)' }}>
-          <p className="eyebrow mb-8" style={{ color: 'var(--red)' }}>Round 2 &middot; Tech Elimination</p>
-          <h1 style={{ fontSize: 32, marginBottom: 16 }}>15 Minutes &middot; 25 Standard Questions</h1>
+        <div className="card card-lg text-center" style={{ maxWidth: 520, border: '1px solid rgba(229, 9, 20, 0.4)', boxShadow: '0 0 35px rgba(229,9,20,0.2)' }}>
+          <p className="eyebrow mb-8" style={{ color: 'var(--red)' }}>ROUND 2 &middot; TECH ELIMINATION</p>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 44, letterSpacing: '0.03em', marginBottom: 16, lineHeight: 1 }}>
+            15 MINUTES &middot; 25 TECH MCQS
+          </h1>
           <p className="muted mb-24" style={{ fontSize: 14, lineHeight: 1.6 }}>
-            Answer 25 balanced questions across <strong>Python, C, Java, Logic & General Tech</strong>.
+            Answer 25 balanced questions across <strong>Python, C, Java, Logic &amp; General Tech</strong>.
             <br />
             <span style={{ color: 'var(--green)', fontWeight: 'bold' }}>+100 pts</span> for correct answers,{' '}
             <span style={{ color: 'var(--red)', fontWeight: 'bold' }}>&minus;25 pts</span> for wrong answers.
             <br />
             After 25 questions, you will unlock the choice to play the <strong>Bonus Fire Round (+150 / &minus;5)</strong> or safely lock in your score!
           </p>
-          <button className="btn btn-primary btn-block" style={{ height: 48, fontSize: 16 }} onClick={startRound}>Start Round</button>
+          <button
+            className="btn btn-primary btn-block"
+            style={{ fontFamily: 'var(--font-display)', height: 50, fontSize: 22, letterSpacing: '0.04em' }}
+            onClick={startRound}
+          >
+            START ROUND 2 (15M) 🔥
+          </button>
         </div>
       </div>
     );
@@ -284,18 +292,20 @@ function PlayInner() {
   if (status === 'bonus_decision') {
     return (
       <div className="center-screen">
-        <div className="card card-lg text-center" style={{ maxWidth: 540, border: '2px solid var(--gold)', boxShadow: '0 0 35px rgba(255, 187, 0, 0.25)' }}>
-          <div style={{ display: 'inline-block', padding: '4px 12px', background: 'rgba(255,187,0,0.15)', border: '1px solid var(--gold)', borderRadius: 20, color: 'var(--gold)', fontSize: 12, fontWeight: 700, marginBottom: 12 }}>
+        <div className="card card-lg text-center" style={{ maxWidth: 560, border: '2px solid var(--gold)', boxShadow: '0 0 45px rgba(255, 187, 0, 0.3)' }}>
+          <div style={{ display: 'inline-block', padding: '6px 14px', background: 'rgba(255,187,0,0.15)', border: '1px solid var(--gold)', borderRadius: 20, color: 'var(--gold)', fontSize: 12, fontWeight: 700, marginBottom: 12 }}>
             ⚡ STRATEGIC BONUS DECISION
           </div>
-          <h2 style={{ fontSize: 28, marginBottom: 8, color: '#fff' }}>25 Questions Completed!</h2>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 38, letterSpacing: '0.03em', marginBottom: 8, color: '#fff', lineHeight: 1 }}>
+            25 QUESTIONS COMPLETED!
+          </h2>
           <p className="muted mb-20" style={{ fontSize: 15 }}>
-            Current Locked Score: <strong style={{ color: 'var(--gold)', fontSize: 20 }}>{gameRef.current.score} pts</strong>
+            Current Locked Score: <strong style={{ color: 'var(--gold)', fontSize: 22, fontFamily: 'var(--font-mono)' }}>{gameRef.current.score} pts</strong>
             <br />
             <span className="mono" style={{ fontSize: 13, opacity: 0.8 }}>({gameRef.current.correct} Correct &middot; {gameRef.current.wrong} Wrong &middot; {fmtClock(timeLeftDisp)} remaining)</span>
           </p>
 
-          <div style={{ background: '#181818', borderRadius: 10, padding: 18, marginBottom: 20, textAlign: 'left', border: '1px solid rgba(255,255,255,0.08)' }}>
+          <div style={{ background: 'rgba(24, 24, 24, 0.95)', borderRadius: 10, padding: 18, marginBottom: 22, textAlign: 'left', border: '1px solid rgba(255,255,255,0.08)' }}>
             <p style={{ fontWeight: 600, fontSize: 14, marginBottom: 10, color: '#fff' }}>Choose how you wish to proceed:</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <div style={{ padding: '12px 14px', borderRadius: 8, background: 'rgba(255, 187, 0, 0.08)', border: '1px solid rgba(255, 187, 0, 0.3)' }}>
@@ -306,7 +316,7 @@ function PlayInner() {
               </div>
 
               <div style={{ padding: '12px 14px', borderRadius: 8, background: 'rgba(255, 255, 255, 0.04)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
-                <p style={{ margin: 0, fontWeight: 700, color: '#fff', fontSize: 14 }}>🔒 Option B: Submit Current Result & Lock Score</p>
+                <p style={{ margin: 0, fontWeight: 700, color: '#fff', fontSize: 14 }}>🔒 Option B: Submit Current Result &amp; Lock Score</p>
                 <p style={{ margin: '4px 0 0', fontSize: 12, color: 'rgba(255,255,255,0.75)' }}>
                   Safely finalize your current score right now without any risk of deduction and submit to the leaderboard.
                 </p>
@@ -318,28 +328,32 @@ function PlayInner() {
             <button
               className="btn btn-block"
               style={{
+                fontFamily: 'var(--font-display)',
+                letterSpacing: '0.04em',
                 background: 'linear-gradient(135deg, #FFB800 0%, #E50914 100%)',
                 color: '#000',
                 fontWeight: 'bold',
-                height: 48,
-                fontSize: 15,
+                height: 50,
+                fontSize: 18,
                 flex: 1,
               }}
               onClick={handleStartBonus}
             >
-              🔥 Play Bonus Round
+              🔥 PLAY BONUS ROUND
             </button>
             <button
               className="btn btn-ghost btn-block"
               style={{
-                height: 48,
-                fontSize: 14,
+                fontFamily: 'var(--font-display)',
+                letterSpacing: '0.04em',
+                height: 50,
+                fontSize: 18,
                 flex: 1,
-                border: '1px solid rgba(255,255,255,0.2)',
+                border: '1px solid rgba(255,255,255,0.25)',
               }}
               onClick={handleSkipBonusAndSubmit}
             >
-              ✅ Submit & Lock Score
+              ✅ SUBMIT &amp; LOCK SCORE
             </button>
           </div>
         </div>

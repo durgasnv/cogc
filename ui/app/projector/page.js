@@ -69,12 +69,12 @@ export default function ProjectorArenaPage() {
 
   return (
     <div
+      className="ambient-glow-bg"
       style={{
         minHeight: '100vh',
-        background: '#070707',
         color: '#fff',
-        fontFamily: 'system-ui, -apple-system, sans-serif',
-        padding: '24px 32px',
+        fontFamily: 'var(--font-body)',
+        padding: '28px 36px',
         overflowX: 'hidden',
       }}
     >
@@ -84,44 +84,63 @@ export default function ProjectorArenaPage() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          borderBottom: '1px solid rgba(229, 9, 20, 0.4)',
-          paddingBottom: 16,
-          marginBottom: 28,
+          borderBottom: '1px solid rgba(229, 9, 20, 0.35)',
+          paddingBottom: 20,
+          marginBottom: 32,
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
           <div
             style={{
+              fontFamily: 'var(--font-display)',
               background: 'var(--red)',
               color: '#fff',
-              fontWeight: 900,
-              fontSize: 18,
-              letterSpacing: 2,
-              padding: '6px 14px',
+              fontSize: 20,
+              letterSpacing: '0.08em',
+              padding: '6px 16px',
               borderRadius: 6,
-              boxShadow: '0 0 20px rgba(229,9,20,0.6)',
+              boxShadow: '0 0 24px rgba(229,9,20,0.6)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
             }}
           >
-            LIVE STAGE
+            <span>LIVE STAGE</span>
           </div>
-          <h1 style={{ fontSize: 26, margin: 0, fontWeight: 800, letterSpacing: 1 }}>
-            COOK OR GET COOKED &middot; TOURNAMENT ARENA
-          </h1>
+          <div>
+            <span className="eyebrow" style={{ display: 'block', fontSize: 11, letterSpacing: '0.16em', marginBottom: 2 }}>
+              ENGINEERS&rsquo; DAY 2026 // OFFICIAL TOURNAMENT ARENA
+            </span>
+            <h1
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 34,
+                margin: 0,
+                letterSpacing: '0.04em',
+                lineHeight: 1,
+              }}
+            >
+              COOK <span style={{ color: 'var(--red)' }}>OR</span> GET COOKED
+            </h1>
+          </div>
         </div>
 
         {/* Round Switcher Tabs */}
-        <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
           <button
             onClick={() => setActiveRound('round2')}
             style={{
-              padding: '8px 18px',
+              fontFamily: 'var(--font-display)',
+              letterSpacing: '0.04em',
+              padding: '10px 20px',
               borderRadius: 8,
               border: activeRound === 'round2' ? '2px solid var(--red)' : '1px solid #333',
-              background: activeRound === 'round2' ? 'rgba(229,9,20,0.2)' : '#121212',
-              color: activeRound === 'round2' ? 'var(--red)' : '#aaa',
-              fontWeight: 'bold',
+              background: activeRound === 'round2' ? 'rgba(229,9,20,0.25)' : 'rgba(20,20,20,0.8)',
+              color: activeRound === 'round2' ? '#fff' : '#aaa',
               cursor: 'pointer',
-              fontSize: 14,
+              fontSize: 16,
+              boxShadow: activeRound === 'round2' ? '0 0 20px rgba(229,9,20,0.4)' : 'none',
+              transition: 'all 0.15s ease',
             }}
           >
             🔥 Round 2 (MCQ Blitz)
@@ -129,14 +148,17 @@ export default function ProjectorArenaPage() {
           <button
             onClick={() => setActiveRound('round3')}
             style={{
-              padding: '8px 18px',
+              fontFamily: 'var(--font-display)',
+              letterSpacing: '0.04em',
+              padding: '10px 20px',
               borderRadius: 8,
               border: activeRound === 'round3' ? '2px solid var(--gold)' : '1px solid #333',
-              background: activeRound === 'round3' ? 'rgba(255,187,0,0.2)' : '#121212',
+              background: activeRound === 'round3' ? 'rgba(245,197,24,0.25)' : 'rgba(20,20,20,0.8)',
               color: activeRound === 'round3' ? 'var(--gold)' : '#aaa',
-              fontWeight: 'bold',
               cursor: 'pointer',
-              fontSize: 14,
+              fontSize: 16,
+              boxShadow: activeRound === 'round3' ? '0 0 20px rgba(245,197,24,0.3)' : 'none',
+              transition: 'all 0.15s ease',
             }}
           >
             🤖 Round 3 (Human vs AI)
@@ -144,14 +166,17 @@ export default function ProjectorArenaPage() {
           <button
             onClick={() => setActiveRound('round5')}
             style={{
-              padding: '8px 18px',
+              fontFamily: 'var(--font-display)',
+              letterSpacing: '0.04em',
+              padding: '10px 20px',
               borderRadius: 8,
               border: activeRound === 'round5' ? '2px solid #00E5FF' : '1px solid #333',
-              background: activeRound === 'round5' ? 'rgba(0,229,255,0.2)' : '#121212',
+              background: activeRound === 'round5' ? 'rgba(0,229,255,0.25)' : 'rgba(20,20,20,0.8)',
               color: activeRound === 'round5' ? '#00E5FF' : '#aaa',
-              fontWeight: 'bold',
               cursor: 'pointer',
-              fontSize: 14,
+              fontSize: 16,
+              boxShadow: activeRound === 'round5' ? '0 0 20px rgba(0,229,255,0.3)' : 'none',
+              transition: 'all 0.15s ease',
             }}
           >
             👑 Round 5 (Grand Finale)
@@ -160,9 +185,10 @@ export default function ProjectorArenaPage() {
           <button
             onClick={toggleFullscreen}
             style={{
-              padding: '8px 14px',
+              fontFamily: 'var(--font-mono)',
+              padding: '9px 16px',
               borderRadius: 8,
-              background: '#222',
+              background: 'rgba(255,255,255,0.06)',
               color: '#fff',
               border: '1px solid #444',
               cursor: 'pointer',
@@ -181,93 +207,102 @@ export default function ProjectorArenaPage() {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: 20,
-            maxWidth: 1100,
-            margin: '0 auto 36px',
+            gap: 24,
+            maxWidth: 1160,
+            margin: '0 auto 40px',
             alignItems: 'flex-end',
           }}
         >
           {/* #2 Silver */}
           <div
+            className="glass-card"
             style={{
-              background: 'linear-gradient(180deg, #202020 0%, #101010 100%)',
+              background: 'linear-gradient(180deg, rgba(38,38,38,0.9) 0%, rgba(18,18,18,0.95) 100%)',
               border: '2px solid #c0c0c0',
-              borderRadius: 14,
-              padding: '24px 20px',
+              borderRadius: 16,
+              padding: '28px 22px',
               textAlign: 'center',
-              boxShadow: '0 0 25px rgba(192,192,192,0.2)',
-              minHeight: 190,
+              boxShadow: '0 0 30px rgba(192,192,192,0.25)',
+              minHeight: 205,
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
             }}
           >
-            <div style={{ fontSize: 32, marginBottom: 4 }}>🥈</div>
-            <div style={{ fontSize: 13, color: '#aaa', fontWeight: 700, letterSpacing: 1 }}>RANK #2</div>
-            <h3 style={{ fontSize: 22, margin: '6px 0', color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <div style={{ fontSize: 36, marginBottom: 4 }}>🥈</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 20, color: '#c0c0c0', letterSpacing: '0.06em' }}>
+              RANK #2 &middot; SILVER
+            </div>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 28, margin: '8px 0 4px', color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', letterSpacing: '0.02em' }}>
               {top2?.teamName || '—'}
             </h3>
-            <div style={{ fontSize: 28, fontWeight: 900, color: '#c0c0c0', fontFamily: 'monospace' }}>
+            <div style={{ fontSize: 32, fontWeight: 800, color: '#e0e0e0', fontFamily: 'var(--font-mono)' }}>
               {top2?.score !== null && top2?.score !== undefined ? `${top2.score} pts` : '—'}
             </div>
-            <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', marginTop: 4 }}>
+            <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', marginTop: 4, fontFamily: 'var(--font-mono)' }}>
               {top2 ? fmtTime(top2.timeTakenSeconds) : ''}
             </div>
           </div>
 
           {/* #1 Gold (Taller Center) */}
           <div
+            className="glass-card"
             style={{
-              background: 'linear-gradient(180deg, #2a2208 0%, #120f04 100%)',
+              background: 'linear-gradient(180deg, rgba(46, 36, 12, 0.95) 0%, rgba(20, 15, 6, 0.98) 100%)',
               border: '3px solid var(--gold)',
-              borderRadius: 16,
-              padding: '32px 24px',
+              borderRadius: 18,
+              padding: '36px 28px',
               textAlign: 'center',
-              boxShadow: '0 0 45px rgba(255,187,0,0.4)',
-              minHeight: 230,
+              boxShadow: '0 0 55px rgba(245,197,24,0.45)',
+              minHeight: 250,
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
               transform: 'scale(1.05)',
             }}
           >
-            <div style={{ fontSize: 44, marginBottom: 4 }}>👑 🥇</div>
-            <div style={{ fontSize: 14, color: 'var(--gold)', fontWeight: 800, letterSpacing: 2 }}>LEADER &middot; #1</div>
-            <h2 style={{ fontSize: 26, margin: '6px 0', color: '#fff', fontWeight: 900, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <div style={{ fontSize: 50, marginBottom: 4 }}>👑 🥇</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 22, color: 'var(--gold)', letterSpacing: '0.08em' }}>
+              LEADER &middot; CHAMPION #1
+            </div>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 36, margin: '8px 0 4px', color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', letterSpacing: '0.02em' }}>
               {top1?.teamName || '—'}
             </h2>
-            <div style={{ fontSize: 36, fontWeight: 900, color: 'var(--gold)', fontFamily: 'monospace' }}>
+            <div style={{ fontSize: 42, fontWeight: 900, color: 'var(--gold)', fontFamily: 'var(--font-mono)', textShadow: '0 0 20px rgba(245,197,24,0.5)' }}>
               {top1?.score !== null && top1?.score !== undefined ? `${top1.score} pts` : '—'}
             </div>
-            <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.7)', marginTop: 6, fontWeight: 600 }}>
+            <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.8)', marginTop: 6, fontWeight: 600, fontFamily: 'var(--font-mono)' }}>
               {top1 ? fmtTime(top1.timeTakenSeconds) : ''}
             </div>
           </div>
 
           {/* #3 Bronze */}
           <div
+            className="glass-card"
             style={{
-              background: 'linear-gradient(180deg, #24160d 0%, #110b06 100%)',
+              background: 'linear-gradient(180deg, rgba(40, 24, 14, 0.9) 0%, rgba(18, 12, 7, 0.95) 100%)',
               border: '2px solid #cd7f32',
-              borderRadius: 14,
-              padding: '24px 20px',
+              borderRadius: 16,
+              padding: '28px 22px',
               textAlign: 'center',
-              boxShadow: '0 0 25px rgba(205,127,50,0.2)',
-              minHeight: 180,
+              boxShadow: '0 0 30px rgba(205,127,50,0.25)',
+              minHeight: 195,
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
             }}
           >
-            <div style={{ fontSize: 32, marginBottom: 4 }}>🥉</div>
-            <div style={{ fontSize: 13, color: '#cd7f32', fontWeight: 700, letterSpacing: 1 }}>RANK #3</div>
-            <h3 style={{ fontSize: 22, margin: '6px 0', color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <div style={{ fontSize: 36, marginBottom: 4 }}>🥉</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 20, color: '#cd7f32', letterSpacing: '0.06em' }}>
+              RANK #3 &middot; BRONZE
+            </div>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 28, margin: '8px 0 4px', color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', letterSpacing: '0.02em' }}>
               {top3?.teamName || '—'}
             </h3>
-            <div style={{ fontSize: 28, fontWeight: 900, color: '#cd7f32', fontFamily: 'monospace' }}>
+            <div style={{ fontSize: 32, fontWeight: 800, color: '#cd7f32', fontFamily: 'var(--font-mono)' }}>
               {top3?.score !== null && top3?.score !== undefined ? `${top3.score} pts` : '—'}
             </div>
-            <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', marginTop: 4 }}>
+            <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', marginTop: 4, fontFamily: 'var(--font-mono)' }}>
               {top3 ? fmtTime(top3.timeTakenSeconds) : ''}
             </div>
           </div>
@@ -276,42 +311,43 @@ export default function ProjectorArenaPage() {
 
       {/* Main Leaderboard Table */}
       <div
+        className="glass-card"
         style={{
-          background: '#111',
-          borderRadius: 14,
-          border: '1px solid #222',
+          borderRadius: 16,
+          border: '1px solid rgba(255,255,255,0.1)',
           overflow: 'hidden',
           maxWidth: 1200,
           margin: '0 auto',
+          boxShadow: '0 16px 48px rgba(0,0,0,0.6)',
         }}
       >
         <div
           style={{
-            padding: '16px 24px',
-            borderBottom: '1px solid #222',
+            padding: '18px 28px',
+            borderBottom: '1px solid rgba(255,255,255,0.08)',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            background: '#161616',
+            background: 'rgba(24, 24, 24, 0.9)',
           }}
         >
-          <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--red)', letterSpacing: 1 }}>
-            LIVE LEADERBOARD STANDINGS ({rows.length} TEAMS)
+          <span style={{ fontFamily: 'var(--font-display)', fontSize: 20, color: 'var(--red)', letterSpacing: '0.06em' }}>
+            LIVE LEADERBOARD STANDINGS ({rows.length} REGISTERED TEAMS)
           </span>
-          <span style={{ fontSize: 12, color: '#777', fontFamily: 'monospace' }}>
-            Auto-refreshing &middot; Last updated: {new Date(lastRefreshed).toLocaleTimeString()}
+          <span style={{ fontSize: 12, color: '#888', fontFamily: 'var(--font-mono)' }}>
+            ⚡ Auto-refreshing (3s) &middot; Updated: {new Date(lastRefreshed).toLocaleTimeString()}
           </span>
         </div>
 
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
-            <tr style={{ background: '#0e0e0e', borderBottom: '1px solid #222', color: '#888', fontSize: 13 }}>
-              <th style={{ padding: '14px 20px', width: 90 }}>Rank</th>
-              <th style={{ padding: '14px 20px' }}>Team Name</th>
-              <th style={{ padding: '14px 20px' }}>Score</th>
-              <th style={{ padding: '14px 20px' }}>Time Taken</th>
-              <th style={{ padding: '14px 20px' }}>Correct / Total</th>
-              <th style={{ padding: '14px 20px', textAlign: 'right' }}>Status</th>
+            <tr style={{ background: 'rgba(14, 14, 14, 0.95)', borderBottom: '1px solid rgba(255,255,255,0.08)', color: '#888', fontSize: 13 }}>
+              <th style={{ padding: '14px 24px', width: 110, fontFamily: 'var(--font-display)', fontSize: 16, letterSpacing: '0.04em' }}>RANK</th>
+              <th style={{ padding: '14px 24px', fontFamily: 'var(--font-display)', fontSize: 16, letterSpacing: '0.04em' }}>TEAM NAME</th>
+              <th style={{ padding: '14px 24px', fontFamily: 'var(--font-display)', fontSize: 16, letterSpacing: '0.04em' }}>SCORE</th>
+              <th style={{ padding: '14px 24px', fontFamily: 'var(--font-display)', fontSize: 16, letterSpacing: '0.04em' }}>TIME TAKEN</th>
+              <th style={{ padding: '14px 24px', fontFamily: 'var(--font-display)', fontSize: 16, letterSpacing: '0.04em' }}>ACCURACY</th>
+              <th style={{ padding: '14px 24px', textAlign: 'right', fontFamily: 'var(--font-display)', fontSize: 16, letterSpacing: '0.04em' }}>STATUS</th>
             </tr>
           </thead>
           <tbody>
@@ -321,36 +357,37 @@ export default function ProjectorArenaPage() {
                 <tr
                   key={row.teamId || idx}
                   style={{
-                    borderBottom: '1px solid #1a1a1a',
-                    background: isTop3 ? 'rgba(255,187,0,0.03)' : idx % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.01)',
+                    borderBottom: '1px solid rgba(255,255,255,0.04)',
+                    background: isTop3 ? 'rgba(245,197,24,0.04)' : idx % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.015)',
+                    transition: 'background 0.15s ease',
                   }}
                 >
-                  <td style={{ padding: '14px 20px', fontFamily: 'monospace', fontWeight: 'bold' }}>
+                  <td style={{ padding: '16px 24px', fontFamily: 'var(--font-mono)', fontWeight: 'bold', fontSize: 16 }}>
                     {idx === 0 ? '🥇 #1' : idx === 1 ? '🥈 #2' : idx === 2 ? '🥉 #3' : `#${idx + 1}`}
                   </td>
-                  <td style={{ padding: '14px 20px', fontSize: 16, fontWeight: 700 }}>
+                  <td style={{ padding: '16px 24px', fontSize: 16, fontWeight: 700 }}>
                     {row.teamName}
                   </td>
-                  <td style={{ padding: '14px 20px', fontFamily: 'monospace', fontSize: 18, fontWeight: 800, color: 'var(--gold)' }}>
+                  <td style={{ padding: '16px 24px', fontFamily: 'var(--font-mono)', fontSize: 20, fontWeight: 800, color: 'var(--gold)' }}>
                     {row.score !== null && row.score !== undefined ? `${row.score} pts` : '—'}
                   </td>
-                  <td style={{ padding: '14px 20px', fontFamily: 'monospace', color: '#aaa' }}>
+                  <td style={{ padding: '16px 24px', fontFamily: 'var(--font-mono)', color: '#aaa', fontSize: 14 }}>
                     {fmtTime(row.timeTakenSeconds)}
                   </td>
-                  <td style={{ padding: '14px 20px', fontFamily: 'monospace', color: '#aaa' }}>
+                  <td style={{ padding: '16px 24px', fontFamily: 'var(--font-mono)', color: '#aaa', fontSize: 14 }}>
                     {row.correct !== null && row.correct !== undefined ? `${row.correct} / ${row.attempted || row.totalQuestions || 25}` : '—'}
                   </td>
-                  <td style={{ padding: '14px 20px', textAlign: 'right' }}>
+                  <td style={{ padding: '16px 24px', textAlign: 'right' }}>
                     {row.score === null || row.score === undefined ? (
-                      <span style={{ padding: '4px 10px', borderRadius: 4, background: '#222', color: '#888', fontSize: 12 }}>
+                      <span className="chip" style={{ background: 'rgba(255,255,255,0.05)', color: '#888', fontSize: 12 }}>
                         In Progress
                       </span>
                     ) : row.passed ? (
-                      <span style={{ padding: '4px 12px', borderRadius: 4, background: 'rgba(70,211,105,0.15)', color: 'var(--green)', border: '1px solid var(--green)', fontSize: 12, fontWeight: 700 }}>
+                      <span className="chip green" style={{ fontWeight: 700, fontSize: 12 }}>
                         QUALIFIED 🏆
                       </span>
                     ) : (
-                      <span style={{ padding: '4px 12px', borderRadius: 4, background: 'rgba(229,9,20,0.15)', color: 'var(--red)', border: '1px solid var(--red)', fontSize: 12, fontWeight: 700 }}>
+                      <span className="chip red" style={{ fontWeight: 700, fontSize: 12 }}>
                         ELIMINATED 🍫
                       </span>
                     )}

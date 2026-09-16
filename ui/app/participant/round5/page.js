@@ -102,18 +102,20 @@ export default function Round5PlayPage() {
   if (status === 'ready') {
     return (
       <div className="center-screen">
-        <div className="card card-lg text-center" style={{ maxWidth: 540, border: '2px solid var(--red)', boxShadow: '0 0 35px rgba(229,9,20,0.3)' }}>
+        <div className="card card-lg text-center" style={{ maxWidth: 560, border: '2px solid var(--red)', boxShadow: '0 0 45px rgba(229,9,20,0.35)' }}>
           <p className="eyebrow mb-8" style={{ color: 'var(--red)', fontWeight: 800 }}>ROUND 5 &middot; THE GRAND FINALE</p>
-          <h1 style={{ fontSize: 34, marginBottom: 16 }}>C Code Debugging & Suitcase Lock</h1>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 44, letterSpacing: '0.03em', marginBottom: 16, lineHeight: 1 }}>
+            C Code Debugging &amp; <span style={{ color: 'var(--gold)' }}>Suitcase Lock</span>
+          </h1>
           <p className="muted mb-20" style={{ fontSize: 15, lineHeight: 1.6 }}>
             Debug 5 challenging C programs across Easy, Medium, and Hard tiers.
             <br />
             Inspect the buggy code, identify the logic flaw, calculate the correct output, and unlock the final <strong>9-Digit Suitcase Lock</strong>!
           </p>
 
-          <div style={{ marginBottom: 24, textAlign: 'left', background: '#181818', padding: 16, borderRadius: 8, border: '1px solid #333' }}>
-            <label style={{ display: 'block', fontSize: 13, color: 'var(--gold)', fontWeight: 700, marginBottom: 8 }}>
-              Select Assigned Problem Set:
+          <div style={{ marginBottom: 24, textAlign: 'left', background: 'rgba(24, 24, 24, 0.9)', padding: 18, borderRadius: 10, border: '1px solid #333' }}>
+            <label style={{ display: 'block', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--gold)', fontWeight: 700, letterSpacing: '0.05em', marginBottom: 10 }}>
+              SELECT ASSIGNED PROBLEM SET:
             </label>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
               {[1, 2, 3, 4].map((s) => (
@@ -121,17 +123,21 @@ export default function Round5PlayPage() {
                   key={s}
                   type="button"
                   className={`btn ${selectedSet === s ? 'btn-primary' : 'btn-ghost'}`}
-                  style={{ fontSize: 14, fontWeight: 'bold' }}
+                  style={{ fontFamily: 'var(--font-display)', fontSize: 18, letterSpacing: '0.04em' }}
                   onClick={() => setSelectedSet(s)}
                 >
-                  Set {s}
+                  SET {s}
                 </button>
               ))}
             </div>
           </div>
 
-          <button className="btn btn-primary btn-block" style={{ height: 48, fontSize: 16 }} onClick={startRound}>
-            Enter Finale Chamber (25:00)
+          <button
+            className="btn btn-primary btn-block"
+            style={{ fontFamily: 'var(--font-display)', height: 50, fontSize: 22, letterSpacing: '0.05em' }}
+            onClick={startRound}
+          >
+            ENTER FINALE CHAMBER (25:00) 👑
           </button>
         </div>
       </div>
@@ -143,8 +149,12 @@ export default function Round5PlayPage() {
       <div className="page">
         <div className="container quiz-wrap text-center">
           <p className="eyebrow" style={{ color: 'var(--gold)' }}>Grand Finale Complete</p>
-          <h1 style={{ fontSize: 40, marginBottom: 12 }}>🏁 Tournament Finale Submitted!</h1>
-          <p className="muted mb-20">Set {selectedSet} &middot; 5 C Problems &amp; Suitcase Lock Attempted</p>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 48, marginBottom: 12, letterSpacing: '0.03em' }}>
+            🏁 TOURNAMENT FINALE SUBMITTED!
+          </h1>
+          <p className="muted mb-20" style={{ fontFamily: 'var(--font-mono)' }}>
+            Set {selectedSet} &middot; 5 C Problems &amp; Suitcase Lock Attempted
+          </p>
 
           <div className="status-banner win" style={{ fontSize: 18, padding: 18, fontWeight: 'bold', marginBottom: 20 }}>
             👑 GRAND FINALE CHALLENGE CONCLUDED! Awaiting stage unlock verification! 🔥
@@ -176,11 +186,13 @@ export default function Round5PlayPage() {
         <div className="row-between mb-16" style={{ alignItems: 'center' }}>
           <div>
             <span className="eyebrow" style={{ color: 'var(--red)' }}>ROUND 5 &middot; FINALE (SET {selectedSet})</span>
-            <h2 style={{ fontSize: 24, margin: '4px 0 0' }}>C Debugging &amp; Chest Unlock</h2>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 32, margin: '4px 0 0', letterSpacing: '0.03em' }}>
+              C Debugging &amp; <span style={{ color: 'var(--gold)' }}>Suitcase Unlock</span>
+            </h2>
           </div>
           <div style={{ textAlign: 'right' }}>
             <span className="muted small mono" style={{ display: 'block' }}>TIME REMAINING</span>
-            <span className={`timer-clock${timeLeft <= 60 ? ' low' : ''}`} style={{ fontSize: 26, fontWeight: 'bold', fontFamily: 'monospace' }}>
+            <span className={`timer-clock${timeLeft <= 60 ? ' low' : ''}`} style={{ fontSize: 28, fontWeight: 'bold', fontFamily: 'var(--font-mono)' }}>
               {fmtClock(timeLeft)}
             </span>
           </div>
@@ -197,7 +209,7 @@ export default function Round5PlayPage() {
             <button
               key={q.q}
               className={`btn ${activeTab === idx ? 'btn-primary' : 'btn-ghost'}`}
-              style={{ fontSize: 13, padding: '8px 16px' }}
+              style={{ fontFamily: 'var(--font-display)', fontSize: 16, letterSpacing: '0.03em', padding: '8px 16px' }}
               onClick={() => setActiveTab(idx)}
             >
               Q{q.q}: {q.title} ({q.difficulty})
@@ -206,7 +218,9 @@ export default function Round5PlayPage() {
           <button
             className={`btn ${activeTab === 5 ? 'btn-primary' : 'btn-ghost'}`}
             style={{
-              fontSize: 13,
+              fontFamily: 'var(--font-display)',
+              fontSize: 16,
+              letterSpacing: '0.03em',
               padding: '8px 16px',
               borderColor: 'var(--gold)',
               color: activeTab === 5 ? '#000' : 'var(--gold)',
@@ -250,8 +264,8 @@ export default function Round5PlayPage() {
                   padding: 16,
                   borderRadius: 8,
                   fontSize: 13,
-                  lineHeight: 1.5,
-                  fontFamily: 'Consolas, Monaco, monospace',
+                  lineHeight: 1.55,
+                  fontFamily: 'var(--font-mono)',
                   overflowX: 'auto',
                   border: '1px solid #222',
                   color: '#e6e6e6',
@@ -269,14 +283,14 @@ export default function Round5PlayPage() {
                 {currentQ.input && (
                   <div className="mb-12">
                     <span className="muted small" style={{ display: 'block', marginBottom: 4 }}>Standard Input:</span>
-                    <div style={{ background: '#0a0a0a', padding: '6px 10px', borderRadius: 4, fontFamily: 'monospace', fontSize: 12 }}>
+                    <div style={{ background: '#0a0a0a', padding: '6px 10px', borderRadius: 4, fontFamily: 'var(--font-mono)', fontSize: 12 }}>
                       {currentQ.input}
                     </div>
                   </div>
                 )}
                 <div>
                   <span className="muted small" style={{ display: 'block', marginBottom: 4 }}>Expected Correct Output:</span>
-                  <div style={{ background: '#0a0a0a', padding: '6px 10px', borderRadius: 4, fontFamily: 'monospace', fontSize: 13, color: 'var(--green)', fontWeight: 'bold' }}>
+                  <div style={{ background: '#0a0a0a', padding: '6px 10px', borderRadius: 4, fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--green)', fontWeight: 'bold' }}>
                     {currentQ.expectedOutput}
                   </div>
                 </div>
@@ -291,7 +305,7 @@ export default function Round5PlayPage() {
                   placeholder="Explain the bug in the code (which line and why it causes wrong output)..."
                   value={userExplanations[currentQ.q] || ''}
                   onChange={(e) => setUserExplanations({ ...userExplanations, [currentQ.q]: e.target.value })}
-                  style={{ width: '100%', resize: 'none', fontSize: 13 }}
+                  style={{ width: '100%', resize: 'none', fontSize: 13, fontFamily: 'var(--font-mono)' }}
                 />
                 <input
                   type="text"
@@ -299,7 +313,7 @@ export default function Round5PlayPage() {
                   placeholder="Output produced by the buggy code..."
                   value={userOutputs[currentQ.q] || ''}
                   onChange={(e) => setUserOutputs({ ...userOutputs, [currentQ.q]: e.target.value })}
-                  style={{ width: '100%', fontSize: 13 }}
+                  style={{ width: '100%', fontSize: 13, fontFamily: 'var(--font-mono)' }}
                 />
                 <div style={{ marginTop: 'auto', display: 'flex', gap: 10 }}>
                   {activeTab > 0 && (
@@ -314,10 +328,10 @@ export default function Round5PlayPage() {
                   ) : (
                     <button
                       className="btn"
-                      style={{ flex: 1, background: 'var(--gold)', color: '#000', fontWeight: 'bold' }}
+                      style={{ flex: 1, background: 'var(--gold)', color: '#000', fontWeight: 'bold', fontFamily: 'var(--font-display)', fontSize: 18, letterSpacing: '0.03em' }}
                       onClick={() => setActiveTab(5)}
                     >
-                      Go to Suitcase Lock 🔒
+                      GO TO SUITCASE LOCK 🔒
                     </button>
                   )}
                 </div>
@@ -329,12 +343,14 @@ export default function Round5PlayPage() {
         {/* Suitcase Lock Tab */}
         {activeTab === 5 && (
           <div style={{ maxWidth: 1040, margin: '0 auto' }}>
-            <div className="card mb-24" style={{ textAlign: 'center', padding: '24px 20px', border: '2px solid var(--gold)', boxShadow: '0 0 35px rgba(255,187,0,0.15)' }}>
+            <div className="card mb-24" style={{ textAlign: 'center', padding: '26px 20px', border: '2px solid var(--gold)', boxShadow: '0 0 40px rgba(255,187,0,0.2)' }}>
               <div style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(255,187,0,0.15)', border: '1px solid var(--gold)', borderRadius: 20, color: 'var(--gold)', fontSize: 13, fontWeight: 700, marginBottom: 10 }}>
                 🔒 THE 9-DIGIT SUITCASE COMBINATION CODES
               </div>
-              <h2 style={{ fontSize: 28, marginBottom: 6 }}>Crack the 3 C Codes to Unlock the Suitcase</h2>
-              <p className="muted" style={{ fontSize: 14, maxWidth: 680, margin: '0 auto' }}>
+              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 36, letterSpacing: '0.03em', marginBottom: 8 }}>
+                CRACK THE 3 C CODES TO REVEAL THE COMBINATION
+              </h2>
+              <p className="muted" style={{ fontSize: 15, maxWidth: 680, margin: '0 auto', lineHeight: 1.5 }}>
                 Each C code below outputs a 3-digit number. Combine the three 3-digit outputs in order to reveal the 9-digit master combination!
               </p>
             </div>
@@ -344,7 +360,7 @@ export default function Round5PlayPage() {
               {getSuitcaseLockSet(selectedSet).keys.map((k) => (
                 <div key={k.keyNumber} className="card" style={{ padding: 18, background: '#111', border: '1px solid #2a2a2a', display: 'flex', flexDirection: 'column' }}>
                   <div className="row-between mb-10" style={{ alignItems: 'center' }}>
-                    <span className="chip" style={{ color: 'var(--gold)', borderColor: 'var(--gold)', background: 'rgba(255,187,0,0.1)' }}>
+                    <span className="chip" style={{ color: 'var(--gold)', borderColor: 'var(--gold)', background: 'rgba(255,187,0,0.1)', fontFamily: 'var(--font-mono)' }}>
                       🔑 {k.segment}
                     </span>
                     <span className="mono small muted">{k.title}</span>
@@ -356,7 +372,7 @@ export default function Round5PlayPage() {
                       borderRadius: 6,
                       fontSize: 12.5,
                       lineHeight: 1.45,
-                      fontFamily: 'Consolas, Monaco, monospace',
+                      fontFamily: 'var(--font-mono)',
                       overflowX: 'auto',
                       border: '1px solid #1a1a1a',
                       color: '#e6e6e6',
@@ -371,14 +387,16 @@ export default function Round5PlayPage() {
             </div>
 
             {/* 9-Digit Suitcase Lock Dialer Box */}
-            <div className="card text-center" style={{ padding: 28, border: '2px solid var(--gold)', boxShadow: '0 0 35px rgba(255,187,0,0.2)' }}>
-              <h3 style={{ fontSize: 20, marginBottom: 6, color: 'var(--gold)' }}>Enter Combined 9-Digit Combination</h3>
-              <p className="muted mb-20" style={{ fontSize: 13 }}>
+            <div className="card text-center" style={{ padding: 32, border: '2px solid var(--gold)', boxShadow: '0 0 40px rgba(255,187,0,0.25)' }}>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 30, letterSpacing: '0.03em', marginBottom: 6, color: 'var(--gold)' }}>
+                ENTER COMBINED 9-DIGIT COMBINATION
+              </h3>
+              <p className="muted mb-20 mono" style={{ fontSize: 13 }}>
                 [ Code 1: Digits 1-3 ] &nbsp;&bull;&nbsp; [ Code 2: Digits 4-6 ] &nbsp;&bull;&nbsp; [ Code 3: Digits 7-9 ]
               </p>
 
               {/* 9 Digits Input Grid */}
-              <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginBottom: 20, flexWrap: 'wrap', alignItems: 'center' }}>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginBottom: 24, flexWrap: 'wrap', alignItems: 'center' }}>
                 {suitcaseDigits.map((digit, idx) => (
                   <div key={idx} style={{ display: 'flex', alignItems: 'center' }}>
                     <input
@@ -388,20 +406,21 @@ export default function Round5PlayPage() {
                       value={digit}
                       onChange={(e) => handleDigitChange(idx, e.target.value)}
                       style={{
-                        width: 44,
-                        height: 52,
-                        fontSize: 24,
-                        fontFamily: 'monospace',
+                        width: 46,
+                        height: 54,
+                        fontSize: 26,
+                        fontFamily: 'var(--font-mono)',
                         fontWeight: 'bold',
                         textAlign: 'center',
                         background: '#0a0a0a',
                         border: digit ? '2px solid var(--gold)' : '1px solid #444',
                         borderRadius: 8,
                         color: '#fff',
+                        boxShadow: digit ? '0 0 12px rgba(245,197,24,0.3)' : 'none',
                       }}
                     />
                     {(idx === 2 || idx === 5) && (
-                      <span style={{ margin: '0 8px', color: '#666', fontSize: 18, fontWeight: 'bold' }}>&bull;</span>
+                      <span style={{ margin: '0 8px', color: '#666', fontSize: 18, fontWeight: 'bold', fontFamily: 'var(--font-mono)' }}>&bull;</span>
                     )}
                   </div>
                 ))}
@@ -416,16 +435,20 @@ export default function Round5PlayPage() {
                 </div>
               )}
 
-              <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+              <div style={{ display: 'flex', gap: 14, justifyContent: 'center' }}>
                 <button
                   className="btn btn-primary"
-                  style={{ padding: '12px 32px', fontSize: 16, background: 'linear-gradient(135deg, #FFB800 0%, #E50914 100%)', color: '#000', fontWeight: 'bold' }}
+                  style={{ padding: '14px 36px', fontSize: 18, fontFamily: 'var(--font-display)', letterSpacing: '0.04em', background: 'linear-gradient(135deg, #FFB800 0%, #E50914 100%)', color: '#000', fontWeight: 'bold' }}
                   onClick={handleUnlockAttempt}
                 >
-                  🔓 Test Unlock Code
+                  🔓 TEST UNLOCK CODE
                 </button>
-                <button className="btn btn-ghost" style={{ padding: '12px 24px', fontSize: 15 }} onClick={finishRound}>
-                  🏁 Final Submit Round 5
+                <button
+                  className="btn btn-ghost"
+                  style={{ padding: '14px 28px', fontSize: 18, fontFamily: 'var(--font-display)', letterSpacing: '0.04em' }}
+                  onClick={finishRound}
+                >
+                  🏁 FINAL SUBMIT ROUND 5
                 </button>
               </div>
             </div>

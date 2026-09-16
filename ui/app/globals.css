@@ -402,3 +402,45 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; margin: 0; lett
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; min-width: 0; }
 .two-col > * { min-width: 0; max-width: 100%; }
 @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } }
+
+/* ---------- Premium Display & Glassmorphism Utilities ---------- */
+.display-font {
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.mono-font {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.glass-card {
+  background: rgba(18, 18, 18, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+}
+
+.glow-red {
+  box-shadow: 0 0 30px rgba(229, 9, 20, 0.35);
+}
+
+.glow-gold {
+  box-shadow: 0 0 35px rgba(245, 197, 24, 0.3);
+}
+
+.glow-text-red {
+  text-shadow: 0 0 24px rgba(229, 9, 20, 0.7);
+}
+
+.glow-text-gold {
+  text-shadow: 0 0 24px rgba(245, 197, 24, 0.7);
+}
+
+.ambient-glow-bg {
+  background:
+    radial-gradient(1200px 700px at 50% -10%, rgba(229, 9, 20, 0.22), transparent 70%),
+    #070707;
+}

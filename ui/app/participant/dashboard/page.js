@@ -60,7 +60,7 @@ export default function ParticipantDashboard() {
       <nav className="topnav">
         <span className="brand">COOK <span>OR GET COOKED</span></span>
         <div className="nav-actions">
-          <span className="chip" style={{ color: 'var(--white)', borderColor: isEliminated ? 'var(--red)' : 'var(--green)' }}>
+          <span className="chip" style={{ color: 'var(--white)', borderColor: isEliminated ? 'var(--red)' : 'var(--green)', fontFamily: 'var(--font-mono)' }}>
             Team: {team.name} {isEliminated ? '💀' : '🔥'}
           </span>
         </div>
@@ -68,18 +68,25 @@ export default function ParticipantDashboard() {
 
       <div className="container mt-32" style={{ paddingBottom: 60 }}>
         <div className="row-between mb-8">
-          <h1 style={{ fontSize: 40 }}>Participant Arena</h1>
+          <div>
+            <span className="eyebrow" style={{ color: 'var(--red)' }}>LIVE TOURNAMENT DASHBOARD</span>
+            <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 48, letterSpacing: '0.03em', marginTop: 4 }}>
+              PARTICIPANT <span style={{ color: 'var(--red)' }}>ARENA</span>
+            </h1>
+          </div>
           {isEliminated && (
-            <span className="chip red" style={{ fontWeight: 'bold' }}>
+            <span className="chip red" style={{ fontWeight: 'bold', fontFamily: 'var(--font-mono)' }}>
               Eliminated in Round {eliminatedInRound}
             </span>
           )}
         </div>
-        <p className="muted mb-24">Tournament Rounds · Dashboard updates live as results are revealed.</p>
+        <p className="muted mb-24" style={{ fontSize: 15 }}>
+          Follow your tournament progress. Results update automatically when host controller reveals stages.
+        </p>
 
         {/* Global Elimination Notice Banner */}
         {isEliminated && (
-          <div className="status-banner fail mb-24" style={{ fontSize: 16, fontWeight: 'bold', padding: 18 }}>
+          <div className="status-banner fail mb-24" style={{ fontSize: 16, fontWeight: 'bold', padding: 20 }}>
             🍫 Thanks for participating bestie! Take a chocolate and move to the back 🚶‍♂️💀
             <div style={{ fontSize: 13, fontWeight: 'normal', marginTop: 6, color: 'var(--muted)' }}>
               Your tournament run concluded in Round {eliminatedInRound}. Access to subsequent rounds has been locked.
@@ -88,11 +95,13 @@ export default function ParticipantDashboard() {
         )}
 
         {/* --- ROUND 2: TECH FIRE ROUND --- */}
-        <div className="card mb-20" style={{ opacity: eliminatedInR2 ? 0.85 : 1 }}>
+        <div className="poster-card mb-20" style={{ opacity: eliminatedInR2 ? 0.75 : 1, cursor: 'default' }}>
           <div className="row-between mb-8">
             <div>
-              <span className="eyebrow" style={{ color: 'var(--red)' }}>Round 2</span>
-              <h3 style={{ fontSize: 24, marginTop: 4 }}>Tech MCQ Fire Round</h3>
+              <span className="eyebrow" style={{ color: 'var(--red)' }}>Round 2 &middot; Eliminator</span>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 32, marginTop: 4, letterSpacing: '0.02em' }}>
+                Tech MCQ Fire Round
+              </h3>
             </div>
             {p2.score ? (
               p2.revealed ? (
@@ -109,9 +118,16 @@ export default function ParticipantDashboard() {
 
           {p2.score ? (
             <div>
-              <div className="row mb-8" style={{ gap: 24 }}>
-                <div><span className="mono" style={{ fontSize: 24, color: 'var(--red)' }}>{p2.score.score}</span> <span className="muted small">pts</span></div>
-                <div className="muted small">{p2.score.correct} correct / {p2.score.wrong} wrong &middot; {p2.score.timeTakenSeconds || 0}s</div>
+              <div className="row mb-12" style={{ gap: 24, alignItems: 'baseline' }}>
+                <div>
+                  <span className="mono" style={{ fontSize: 32, fontWeight: 800, color: 'var(--red)' }}>
+                    {p2.score.score}
+                  </span>
+                  <span className="muted small" style={{ marginLeft: 6 }}>pts</span>
+                </div>
+                <div className="muted small mono">
+                  {p2.score.correct} correct / {p2.score.wrong} wrong &middot; {p2.score.timeTakenSeconds || 0}s
+                </div>
               </div>
               {p2.revealed ? (
                 p2.passed ? (
@@ -131,20 +147,22 @@ export default function ParticipantDashboard() {
             </div>
           ) : (
             <div className="row-between">
-              <p className="muted small">35 Tech MCQs across C, Python, Java, Logic &amp; Bonus. (12m Timer).</p>
+              <p className="muted small">30 Tech MCQs across C, Python, Java, Logic &amp; 5 Bonus dry-runs (15m Timer).</p>
               <Link href="/participant/play?phase=2" className="btn btn-primary btn-sm">
-                Start Round 2
+                Start Round 2 (15m) &rarr;
               </Link>
             </div>
           )}
         </div>
 
         {/* --- ROUND 3: HUMAN VS AI TURING TEST --- */}
-        <div className="card mb-20" style={{ opacity: cannotPlayR3 ? 0.65 : 1 }}>
+        <div className="poster-card mb-20" style={{ opacity: cannotPlayR3 ? 0.6 : 1, cursor: 'default' }}>
           <div className="row-between mb-8">
             <div>
-              <span className="eyebrow" style={{ color: 'var(--gold)' }}>Round 3</span>
-              <h3 style={{ fontSize: 24, marginTop: 4 }}>Human vs AI Turing Test</h3>
+              <span className="eyebrow" style={{ color: 'var(--gold)' }}>Round 3 &middot; Turing Showdown</span>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 32, marginTop: 4, letterSpacing: '0.02em' }}>
+                Human vs AI Turing Test
+              </h3>
             </div>
             {r3.score ? (
               r3.passed ? (
@@ -155,7 +173,7 @@ export default function ParticipantDashboard() {
             ) : cannotPlayR3 ? (
               <span className="chip red">Locked</span>
             ) : (
-              <span className="chip gold">20 Challenges · 5 Mins</span>
+              <span className="chip gold">20 Challenges &middot; 15 Mins</span>
             )}
           </div>
 
@@ -170,13 +188,18 @@ export default function ParticipantDashboard() {
             </div>
           ) : r3.score ? (
             <div>
-              <div className="row mb-8" style={{ gap: 24 }}>
-                <div><span className="mono" style={{ fontSize: 24, color: r3.passed ? 'var(--green)' : 'var(--red)' }}>{r3.score.score}</span> <span className="muted small">pts</span></div>
-                <div className="muted small">{r3.score.correct}/20 correct &middot; Time: {r3.score.timeTakenSeconds}s</div>
+              <div className="row mb-12" style={{ gap: 24, alignItems: 'baseline' }}>
+                <div>
+                  <span className="mono" style={{ fontSize: 32, fontWeight: 800, color: r3.passed ? 'var(--green)' : 'var(--red)' }}>
+                    {r3.score.score}
+                  </span>
+                  <span className="muted small" style={{ marginLeft: 6 }}>pts</span>
+                </div>
+                <div className="muted small mono">{r3.score.correct}/20 correct &middot; Time: {r3.score.timeTakenSeconds}s</div>
               </div>
               <div className="row-between">
                 {r3.passed ? (
-                  <p className="small" style={{ color: 'var(--green)' }}>Qualified for Round 4 Stage Charades!</p>
+                  <p className="small" style={{ color: 'var(--green)', fontWeight: 600 }}>Qualified for Round 4 Stage Charades! 🎭</p>
                 ) : (
                   <p className="small" style={{ color: 'var(--red)' }}>Eliminated in Round 3.</p>
                 )}
@@ -187,38 +210,69 @@ export default function ParticipantDashboard() {
             </div>
           ) : (
             <div className="row-between">
-              <p className="muted small">Spot Human vs AI code in 20 rapid challenges under 5 minutes.</p>
+              <p className="muted small">Spot Human vs AI code in 20 randomized challenges under 15 minutes.</p>
               <Link href="/participant/round3" className="btn btn-primary btn-sm">
-                Enter Round 3 (5m)
+                Enter Round 3 (15m) &rarr;
               </Link>
             </div>
           )}
         </div>
 
-        {/* --- ROUND 5: GRAND FINALE --- */}
-        <div className="card mb-20" style={{ opacity: cannotPlayR5 ? 0.65 : 1 }}>
+        {/* --- ROUND 4: AUDITORIUM STAGE CHARADES --- */}
+        <div className="poster-card mb-20" style={{ opacity: cannotPlayR5 ? 0.6 : 1, cursor: 'default' }}>
           <div className="row-between mb-8">
             <div>
-              <span className="eyebrow" style={{ color: 'var(--red)' }}>Round 5</span>
-              <h3 style={{ fontSize: 24, marginTop: 4 }}>Grand Finale Championship</h3>
+              <span className="eyebrow" style={{ color: '#00E5FF' }}>Round 4 &middot; Stage Event</span>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 32, marginTop: 4, letterSpacing: '0.02em' }}>
+                Tech Charades &amp; Stage Relay
+              </h3>
+            </div>
+            <span className="chip" style={{ color: '#00E5FF', borderColor: '#00E5FF' }}>Auditorium Stage</span>
+          </div>
+          <div className="row-between">
+            <p className="muted small">
+              Live auditorium game conducted by the host on stage. Top 4 teams qualify for the Grand Finale!
+            </p>
+            <span className="chip" style={{ background: 'rgba(255,255,255,0.05)', color: '#aaa' }}>
+              Host Conducted
+            </span>
+          </div>
+        </div>
+
+        {/* --- ROUND 5: GRAND FINALE --- */}
+        <div className="poster-card mb-20" style={{ opacity: cannotPlayR5 ? 0.6 : 1, cursor: 'default', border: !cannotPlayR5 ? '1px solid var(--gold)' : undefined }}>
+          <div className="row-between mb-8">
+            <div>
+              <span className="eyebrow" style={{ color: 'var(--gold)' }}>Round 5 &middot; Championship</span>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 32, marginTop: 4, letterSpacing: '0.02em' }}>
+                Grand Finale &middot; C Debugging &amp; Suitcase Lock
+              </h3>
             </div>
             {cannotPlayR5 ? (
               <span className="chip red">Locked</span>
             ) : (
-              <span className="chip">Upcoming</span>
+              <span className="chip gold">Top 4 Finalists &middot; 25 Mins</span>
             )}
           </div>
           <div className="row-between">
             {cannotPlayR5 ? (
               <p className="muted small" style={{ color: 'var(--red-light)' }}>
-                🔒 Locked: Only Top 4 advancing finalists can enter Round 5.
+                🔒 Locked: Only Top advancing finalists can enter Round 5.
               </p>
             ) : (
-              <p className="muted small">Final championship round for top advancing finalists.</p>
+              <p className="muted small">
+                Debug 5 C programs, solve the 3 combination codes, and crack the 9-digit suitcase lock!
+              </p>
             )}
-            <button className="btn btn-ghost btn-sm" disabled style={{ opacity: 0.4, cursor: 'not-allowed' }}>
-              {cannotPlayR5 ? 'Access Disabled' : 'Standing By'}
-            </button>
+            {cannotPlayR5 ? (
+              <button className="btn btn-ghost btn-sm" disabled style={{ opacity: 0.4, cursor: 'not-allowed' }}>
+                Access Disabled
+              </button>
+            ) : (
+              <Link href="/participant/round5" className="btn btn-primary btn-sm" style={{ background: 'var(--gold)', color: '#000', fontWeight: 'bold' }}>
+                Enter Finale Chamber (25m) 👑
+              </Link>
+            )}
           </div>
         </div>
 

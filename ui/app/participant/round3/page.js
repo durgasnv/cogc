@@ -163,22 +163,26 @@ export default function Round3PlayPage() {
   if (status === 'ready') {
     return (
       <div className="center-screen">
-        <div className="card card-lg text-center" style={{ maxWidth: 540 }}>
-          <p className="eyebrow mb-8">Round 3 &middot; Turing Showdown</p>
-          <h1 style={{ fontSize: 44, marginBottom: 16, color: 'var(--white)' }}>
+        <div className="card card-lg text-center" style={{ maxWidth: 560, border: '2px solid rgba(229,9,20,0.3)', boxShadow: '0 0 35px rgba(229,9,20,0.2)' }}>
+          <p className="eyebrow mb-8" style={{ color: 'var(--gold)' }}>ROUND 3 &middot; TURING SHOWDOWN</p>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 52, marginBottom: 16, color: 'var(--white)', letterSpacing: '0.04em', lineHeight: 1 }}>
             HUMAN <span style={{ color: 'var(--red)' }}>VS</span> AI
           </h1>
           <p className="muted mb-24" style={{ lineHeight: 1.6, fontSize: 15 }}>
             You will be presented with <strong>20 randomly selected Turing challenges</strong> drawn from the master question bank.
             Spot which solution is Human and which is AI.
           </p>
-          <div className="row-between small mono muted mb-24" style={{ background: 'var(--bg-input)', padding: '14px 18px', borderRadius: 8 }}>
+          <div className="row-between small mono muted mb-24" style={{ background: 'var(--bg-input)', padding: '14px 18px', borderRadius: 8, fontFamily: 'var(--font-mono)' }}>
             <span>TIME: <strong style={{ color: 'var(--red-light)' }}>15:00</strong></span>
-            <span>TOTAL QUESTIONS: <strong style={{ color: 'var(--white)' }}>20</strong></span>
+            <span>QUESTIONS: <strong style={{ color: 'var(--white)' }}>20</strong></span>
             <span>PASS CUTOFF: <strong style={{ color: 'var(--green)' }}>60%</strong></span>
           </div>
-          <button className="btn btn-primary btn-block" style={{ fontSize: 16, padding: '14px' }} onClick={startRound}>
-            Start 20 Turing Challenges (15m)
+          <button
+            className="btn btn-primary btn-block"
+            style={{ fontFamily: 'var(--font-display)', fontSize: 22, letterSpacing: '0.04em', padding: '14px' }}
+            onClick={startRound}
+          >
+            START 20 TURING CHALLENGES (15M) 🔥
           </button>
         </div>
       </div>
@@ -346,7 +350,7 @@ export default function Round3PlayPage() {
                     borderRadius: 6,
                     fontSize: 12,
                     fontWeight: 'bold',
-                    fontFamily: 'monospace',
+                    fontFamily: 'var(--font-mono)',
                     cursor: 'pointer',
                     border: isCurrent ? '2px solid var(--red)' : isAnswered ? '1px solid var(--green)' : '1px solid #333',
                     background: isCurrent ? 'var(--red)' : isAnswered ? 'rgba(70,211,105,0.15)' : '#181818',
