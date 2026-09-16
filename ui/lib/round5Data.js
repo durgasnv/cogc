@@ -4,7 +4,22 @@ import suitcaseData from './data/suitcase-code-questions.json';
 export const ROUND5_TIME_LIMIT_SECONDS = 1500; // 25 minutes for Grand Finale
 export const ROUND5_PASS_PERCENTAGE = 70;
 
-export const cDebugQuestions = cDebugData;
+function safeStr(val) {
+  if (val === null || val === undefined) return '';
+  if (typeof val === 'string') return val;
+  if (typeof val === 'object' && val.value !== undefined) return safeStr(val.value);
+  if (Array.isArray(val)) return val.map(safeStr).join('\n');
+  return String(val);
+}
+
+export const cDebugQuestions = (cDebugData || []).map((q) => ({
+  ...q,
+  buggyCode: safeStr(q.buggyCode),
+  solutionCode: safeStr(q.solutionCode),
+  input: safeStr(q.input),
+  expectedOutput: safeStr(q.expectedOutput),
+  explanation: safeStr(q.explanation),
+}));
 export const suitcaseQuestions = suitcaseData;
 
 /**
