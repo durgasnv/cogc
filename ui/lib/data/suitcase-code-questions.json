@@ -1,0 +1,122 @@
+[
+  {
+    "set": 1,
+    "combination": "482719365",
+    "keys": [
+      {
+        "keyNumber": 1,
+        "segment": "Digits 1-3",
+        "title": "Key 1: Arithmetic & Operator Precedence",
+        "digits": "482",
+        "code": "#include <stdio.h>\n\nint main() {\n    int a = 12;\n    int b = 35;\n    int c = 5;\n    int code1 = (a * b) + (c * 12) + 2;\n    printf(\"%d\\n\", code1);\n    return 0;\n}",
+        "explanation": "(12 * 35) = 420; (5 * 12) = 60; 420 + 60 + 2 = 482"
+      },
+      {
+        "keyNumber": 2,
+        "segment": "Digits 4-6",
+        "title": "Key 2: Array Accumulation",
+        "digits": "719",
+        "code": "#include <stdio.h>\n\nint main() {\n    int sum = 0;\n    int arr[] = {150, 220, 180, 169};\n    for (int i = 0; i < 4; i++) {\n        sum += arr[i];\n    }\n    printf(\"%d\\n\", sum);\n    return 0;\n}",
+        "explanation": "150 + 220 + 180 + 169 = 719"
+      },
+      {
+        "keyNumber": 3,
+        "segment": "Digits 7-9",
+        "title": "Key 3: Bitwise Shift Arithmetic",
+        "digits": "365",
+        "code": "#include <stdio.h>\n\nint main() {\n    int x = 8;\n    int y = (x << 5) + (x << 3) + 45;\n    printf(\"%d\\n\", y);\n    return 0;\n}",
+        "explanation": "(8 << 5) = 256; (8 << 3) = 64; 256 + 64 + 45 = 365"
+      }
+    ]
+  },
+  {
+    "set": 2,
+    "combination": "474838529",
+    "keys": [
+      {
+        "keyNumber": 1,
+        "segment": "Digits 1-3",
+        "title": "Key 1: Multiplication & Offset",
+        "digits": "474",
+        "code": "#include <stdio.h>\n\nint main() {\n    int x = 14;\n    int y = 25;\n    int result = (x * y) + 124;\n    printf(\"%d\\n\", result);\n    return 0;\n}",
+        "explanation": "(14 * 25) = 350; 350 + 124 = 474"
+      },
+      {
+        "keyNumber": 2,
+        "segment": "Digits 4-6",
+        "title": "Key 2: Array Summation",
+        "digits": "838",
+        "code": "#include <stdio.h>\n\nint main() {\n    int nums[] = {105, 215, 310, 208};\n    int total = 0;\n    for (int i = 0; i < 4; i++) {\n        total += nums[i];\n    }\n    printf(\"%d\\n\", total);\n    return 0;\n}",
+        "explanation": "105 + 215 + 310 + 208 = 838"
+      },
+      {
+        "keyNumber": 3,
+        "segment": "Digits 7-9",
+        "title": "Key 3: Bitwise Left Shift",
+        "digits": "529",
+        "code": "#include <stdio.h>\n\nint main() {\n    int a = 6;\n    int result = (a << 6) + 145;\n    printf(\"%d\\n\", result);\n    return 0;\n}",
+        "explanation": "(6 << 6) = 6 * 64 = 384; 384 + 145 = 529"
+      }
+    ]
+  },
+  {
+    "set": 3,
+    "combination": "533614379",
+    "keys": [
+      {
+        "keyNumber": 1,
+        "segment": "Digits 1-3",
+        "title": "Key 1: Compound Expression",
+        "digits": "533",
+        "code": "#include <stdio.h>\n\nint main() {\n    int m = 18, n = 20, p = 15;\n    int val = (m * n) + (p * 10) + 23;\n    printf(\"%d\\n\", val);\n    return 0;\n}",
+        "explanation": "(18 * 20) = 360; (15 * 10) = 150; 360 + 150 + 23 = 533"
+      },
+      {
+        "keyNumber": 2,
+        "segment": "Digits 4-6",
+        "title": "Key 2: Subtraction & Grouping",
+        "digits": "614",
+        "code": "#include <stdio.h>\n\nint main() {\n    int base = 1000;\n    int sub = (75 * 4) + 86;\n    printf(\"%d\\n\", base - sub);\n    return 0;\n}",
+        "explanation": "(75 * 4) = 300; 300 + 86 = 386; 1000 - 386 = 614"
+      },
+      {
+        "keyNumber": 3,
+        "segment": "Digits 7-9",
+        "title": "Key 3: Dual Bit Shift",
+        "digits": "379",
+        "code": "#include <stdio.h>\n\nint main() {\n    int k = 9;\n    int out = (k << 5) + (4 << 4) + 27;\n    printf(\"%d\\n\", out);\n    return 0;\n}",
+        "explanation": "(9 << 5) = 288; (4 << 4) = 64; 288 + 64 + 27 = 379"
+      }
+    ]
+  },
+  {
+    "set": 4,
+    "combination": "626811399",
+    "keys": [
+      {
+        "keyNumber": 1,
+        "segment": "Digits 1-3",
+        "title": "Key 1: Multiplication & Deduction",
+        "digits": "626",
+        "code": "#include <stdio.h>\n\nint main() {\n    int p = 25, q = 30;\n    int res = (p * q) - (8 * 15) - 4;\n    printf(\"%d\\n\", res);\n    return 0;\n}",
+        "explanation": "(25 * 30) = 750; (8 * 15) = 120; 750 - 120 - 4 = 626"
+      },
+      {
+        "keyNumber": 2,
+        "segment": "Digits 4-6",
+        "title": "Key 2: Square & Factor",
+        "digits": "811",
+        "code": "#include <stdio.h>\n\nint main() {\n    int base = 11 * 11;\n    int finalVal = (base * 6) + 85;\n    printf(\"%d\\n\", finalVal);\n    return 0;\n}",
+        "explanation": "11 * 11 = 121; 121 * 6 = 726; 726 + 85 = 811"
+      },
+      {
+        "keyNumber": 3,
+        "segment": "Digits 7-9",
+        "title": "Key 3: Shift & Subtraction",
+        "digits": "399",
+        "code": "#include <stdio.h>\n\nint main() {\n    int z = 7;\n    int calc = (z << 6) - (5 * 10) + 1;\n    printf(\"%d\\n\", calc);\n    return 0;\n}",
+        "explanation": "(7 << 6) = 7 * 64 = 448; (5 * 10) = 50; 448 - 50 + 1 = 399"
+      }
+    ]
+  }
+]

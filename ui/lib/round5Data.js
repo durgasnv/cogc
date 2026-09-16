@@ -1,9 +1,11 @@
 import cDebugData from './data/c-debug-questions.json';
+import suitcaseData from './data/suitcase-code-questions.json';
 
 export const ROUND5_TIME_LIMIT_SECONDS = 1500; // 25 minutes for Grand Finale
 export const ROUND5_PASS_PERCENTAGE = 70;
 
 export const cDebugQuestions = cDebugData;
+export const suitcaseQuestions = suitcaseData;
 
 /**
  * Returns all 5 C debugging questions for a specific set (1, 2, 3, or 4)
@@ -28,9 +30,13 @@ export function getCDebugQuestion(setNumber, questionNumber) {
 }
 
 /**
- * Suitcase 9-digit combination lock verification placeholder.
- * (Standing by for user's final test lock data / 3 C codes)
+ * Returns the 3 C coding questions for the 9-digit suitcase lock for a given set
  */
+export function getSuitcaseLockSet(setNumber = 1) {
+  const sNum = Number(setNumber) || 1;
+  return suitcaseQuestions.find((s) => s.set === sNum) || suitcaseQuestions[0];
+}
+
 export const SUITCASE_LOCK_CONFIG = {
   totalDigits: 9,
   segments: [
@@ -38,15 +44,5 @@ export const SUITCASE_LOCK_CONFIG = {
     { label: 'Code 2 (Digits 4-6)', length: 3, placeholder: '***' },
     { label: 'Code 3 (Digits 7-9)', length: 3, placeholder: '***' },
   ],
-  // Default master unlock code (will be updated when user provides lock data)
-  correctCombination: '000000000',
+  correctCombination: '482719365', // Default Set 1 combination
 };
-
-export function verifySuitcaseLock(enteredCode) {
-  const cleaned = String(enteredCode || '').trim().replace(/\D/g, '');
-  if (cleaned.length !== 9) return { valid: false, error: 'Code must be exactly 9 digits.' };
-  return {
-    valid: cleaned === SUITCASE_LOCK_CONFIG.correctCombination,
-    entered: cleaned,
-  };
-}

@@ -19,10 +19,10 @@ export async function POST(req) {
   }
 
   const store = kv();
-  // Check admin configured combination first, fallback to default '000000000'
-  const masterCode = (await store.get('round5:suitcase:code')) || process.env.ROUND5_SUITCASE_CODE || '000000000';
+  const validSetCodes = ['482719365', '474838529', '533614379', '626811399'];
+  const adminCode = await store.get('round5:suitcase:code');
 
-  const isMatch = entered === String(masterCode).trim();
+  const isMatch = (adminCode && entered === String(adminCode).trim()) || validSetCodes.includes(entered);
 
   if (isMatch) {
     // Record successful unlock by this finalist team

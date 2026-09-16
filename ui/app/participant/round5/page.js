@@ -6,6 +6,7 @@ import Link from 'next/link';
 import {
   cDebugQuestions,
   getCDebugSet,
+  getSuitcaseLockSet,
   ROUND5_TIME_LIMIT_SECONDS,
   SUITCASE_LOCK_CONFIG,
 } from '@/lib/round5Data';
@@ -327,61 +328,106 @@ export default function Round5PlayPage() {
 
         {/* Suitcase Lock Tab */}
         {activeTab === 5 && (
-          <div className="card text-center" style={{ maxWidth: 720, margin: '0 auto', padding: 36, border: '2px solid var(--gold)', boxShadow: '0 0 35px rgba(255,187,0,0.2)' }}>
-            <div style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(255,187,0,0.15)', border: '1px solid var(--gold)', borderRadius: 20, color: 'var(--gold)', fontSize: 13, fontWeight: 700, marginBottom: 16 }}>
-              🔒 GRAND FINALE SUITCASE COMBINATION
+          <div style={{ maxWidth: 1040, margin: '0 auto' }}>
+            <div className="card mb-24" style={{ textAlign: 'center', padding: '24px 20px', border: '2px solid var(--gold)', boxShadow: '0 0 35px rgba(255,187,0,0.15)' }}>
+              <div style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(255,187,0,0.15)', border: '1px solid var(--gold)', borderRadius: 20, color: 'var(--gold)', fontSize: 13, fontWeight: 700, marginBottom: 10 }}>
+                🔒 THE 9-DIGIT SUITCASE COMBINATION CODES
+              </div>
+              <h2 style={{ fontSize: 28, marginBottom: 6 }}>Crack the 3 C Codes to Unlock the Suitcase</h2>
+              <p className="muted" style={{ fontSize: 14, maxWidth: 680, margin: '0 auto' }}>
+                Each C code below outputs a 3-digit number. Combine the three 3-digit outputs in order to reveal the 9-digit master combination!
+              </p>
             </div>
-            <h2 style={{ fontSize: 28, marginBottom: 8 }}>Enter the 9-Digit Unlock Combination</h2>
-            <p className="muted mb-24" style={{ fontSize: 14, maxWidth: 540, margin: '0 auto 24px' }}>
-              Enter the three 3-digit outputs derived from your C debugging problems to crack the physical/virtual combination lock.
-            </p>
 
-            {/* 9 Digits Input Grid */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginBottom: 24 }}>
-              {suitcaseDigits.map((digit, idx) => (
-                <input
-                  key={idx}
-                  id={`digit-${idx}`}
-                  type="text"
-                  maxLength={1}
-                  value={digit}
-                  onChange={(e) => handleDigitChange(idx, e.target.value)}
-                  style={{
-                    width: 48,
-                    height: 56,
-                    fontSize: 26,
-                    fontFamily: 'monospace',
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                    background: '#0a0a0a',
-                    border: digit ? '2px solid var(--gold)' : '1px solid #444',
-                    borderRadius: 8,
-                    color: '#fff',
-                  }}
-                />
+            {/* 3 C Coding Questions Grid */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16, marginBottom: 24 }}>
+              {getSuitcaseLockSet(selectedSet).keys.map((k) => (
+                <div key={k.keyNumber} className="card" style={{ padding: 18, background: '#111', border: '1px solid #2a2a2a', display: 'flex', flexDirection: 'column' }}>
+                  <div className="row-between mb-10" style={{ alignItems: 'center' }}>
+                    <span className="chip" style={{ color: 'var(--gold)', borderColor: 'var(--gold)', background: 'rgba(255,187,0,0.1)' }}>
+                      🔑 {k.segment}
+                    </span>
+                    <span className="mono small muted">{k.title}</span>
+                  </div>
+                  <pre
+                    style={{
+                      background: '#070707',
+                      padding: 14,
+                      borderRadius: 6,
+                      fontSize: 12.5,
+                      lineHeight: 1.45,
+                      fontFamily: 'Consolas, Monaco, monospace',
+                      overflowX: 'auto',
+                      border: '1px solid #1a1a1a',
+                      color: '#e6e6e6',
+                      flex: 1,
+                      margin: 0,
+                    }}
+                  >
+                    <code>{k.code}</code>
+                  </pre>
+                </div>
               ))}
             </div>
 
-            {lockFeedback && (
-              <div
-                className={`status-banner ${lockFeedback.success ? 'win' : 'fail'} mb-20`}
-                style={{ fontSize: 14, padding: 12 }}
-              >
-                {lockFeedback.message}
-              </div>
-            )}
+            {/* 9-Digit Suitcase Lock Dialer Box */}
+            <div className="card text-center" style={{ padding: 28, border: '2px solid var(--gold)', boxShadow: '0 0 35px rgba(255,187,0,0.2)' }}>
+              <h3 style={{ fontSize: 20, marginBottom: 6, color: 'var(--gold)' }}>Enter Combined 9-Digit Combination</h3>
+              <p className="muted mb-20" style={{ fontSize: 13 }}>
+                [ Code 1: Digits 1-3 ] &nbsp;&bull;&nbsp; [ Code 2: Digits 4-6 ] &nbsp;&bull;&nbsp; [ Code 3: Digits 7-9 ]
+              </p>
 
-            <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
-              <button
-                className="btn btn-primary"
-                style={{ padding: '12px 32px', fontSize: 16, background: 'linear-gradient(135deg, #FFB800 0%, #E50914 100%)', color: '#000', fontWeight: 'bold' }}
-                onClick={handleUnlockAttempt}
-              >
-                🔓 Test Unlock Code
-              </button>
-              <button className="btn btn-ghost" style={{ padding: '12px 24px', fontSize: 15 }} onClick={finishRound}>
-                🏁 Final Submit Round 5
-              </button>
+              {/* 9 Digits Input Grid */}
+              <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginBottom: 20, flexWrap: 'wrap', alignItems: 'center' }}>
+                {suitcaseDigits.map((digit, idx) => (
+                  <div key={idx} style={{ display: 'flex', alignItems: 'center' }}>
+                    <input
+                      id={`digit-${idx}`}
+                      type="text"
+                      maxLength={1}
+                      value={digit}
+                      onChange={(e) => handleDigitChange(idx, e.target.value)}
+                      style={{
+                        width: 44,
+                        height: 52,
+                        fontSize: 24,
+                        fontFamily: 'monospace',
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                        background: '#0a0a0a',
+                        border: digit ? '2px solid var(--gold)' : '1px solid #444',
+                        borderRadius: 8,
+                        color: '#fff',
+                      }}
+                    />
+                    {(idx === 2 || idx === 5) && (
+                      <span style={{ margin: '0 8px', color: '#666', fontSize: 18, fontWeight: 'bold' }}>&bull;</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {lockFeedback && (
+                <div
+                  className={`status-banner ${lockFeedback.success ? 'win' : 'fail'} mb-20`}
+                  style={{ fontSize: 15, padding: 14, fontWeight: 'bold' }}
+                >
+                  {lockFeedback.message}
+                </div>
+              )}
+
+              <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+                <button
+                  className="btn btn-primary"
+                  style={{ padding: '12px 32px', fontSize: 16, background: 'linear-gradient(135deg, #FFB800 0%, #E50914 100%)', color: '#000', fontWeight: 'bold' }}
+                  onClick={handleUnlockAttempt}
+                >
+                  🔓 Test Unlock Code
+                </button>
+                <button className="btn btn-ghost" style={{ padding: '12px 24px', fontSize: 15 }} onClick={finishRound}>
+                  🏁 Final Submit Round 5
+                </button>
+              </div>
             </div>
           </div>
         )}
