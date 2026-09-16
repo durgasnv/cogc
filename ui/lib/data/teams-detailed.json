@@ -1,0 +1,902 @@
+[
+  {
+    "name": "Code Crackerz",
+    "originalName": "Code Crackerz",
+    "department": "AIML",
+    "year": "II",
+    "members": [
+      {
+        "name": "PILLARISETTY VENKATA SATVIKA",
+        "roll": "25WH1A66C8",
+        "phone": "81869 95934"
+      },
+      {
+        "name": "RENTALA SRUTHI",
+        "roll": "25WH1A66B2",
+        "phone": "75695 68250"
+      }
+    ]
+  },
+  {
+    "name": "Code Slayers",
+    "originalName": "Code Slayers",
+    "department": "AIML",
+    "year": "II",
+    "members": [
+      {
+        "name": "Chebiyyam Sri Yuktha",
+        "roll": "25WH1A66C6",
+        "phone": "7396760558"
+      },
+      {
+        "name": "Bandarupalli Bhuvana Kruthi",
+        "roll": "25WH1A6673",
+        "phone": "9573745831"
+      }
+    ]
+  },
+  {
+    "name": "Ctrl Freaks (Veera)",
+    "originalName": "Ctrl Freaks",
+    "department": "AIML",
+    "year": "II",
+    "members": [
+      {
+        "name": "Veera V Popat",
+        "roll": "25wh1a66b8",
+        "phone": "7013215422"
+      },
+      {
+        "name": "Tanmaya Sree Chirra",
+        "roll": "25wh1a6678",
+        "phone": "6304157039"
+      }
+    ]
+  },
+  {
+    "name": "Ctrl freaks (Sharanya)",
+    "originalName": "Ctrl freaks",
+    "department": "AIML",
+    "year": "II",
+    "members": [
+      {
+        "name": "Sharanya Gurram",
+        "roll": "25WH1A6679",
+        "phone": "7842458315"
+      },
+      {
+        "name": "Rishika Renukunta",
+        "roll": "25WH1A66B3",
+        "phone": "9293333227"
+      }
+    ]
+  },
+  {
+    "name": "Debug dynasty",
+    "originalName": "Debug dynasty",
+    "department": "AIML",
+    "year": "II",
+    "members": [
+      {
+        "name": "Amulya Chatharaju",
+        "roll": "25WH1A66A5",
+        "phone": "9063118412"
+      },
+      {
+        "name": "Pandyala Rithivika reddy",
+        "roll": "25WH1A6698",
+        "phone": "83416 31366"
+      }
+    ]
+  },
+  {
+    "name": "Error not found",
+    "originalName": "Error not found",
+    "department": "AIML",
+    "year": "II",
+    "members": [
+      {
+        "name": "Srinija Reddy",
+        "roll": "25WH1A6695",
+        "phone": "8106026699"
+      },
+      {
+        "name": "Sharanya Shambu",
+        "roll": "25WH1A66C5",
+        "phone": "+91 89193 56771"
+      }
+    ]
+  },
+  {
+    "name": "Shebulids",
+    "originalName": "Shebulids",
+    "department": "AIML",
+    "year": "II",
+    "members": [
+      {
+        "name": "Samanvi",
+        "roll": "25wh1a66b0",
+        "phone": "7680906966"
+      },
+      {
+        "name": "Vaishnavi",
+        "roll": "25wh1a6690",
+        "phone": "75692 33357"
+      }
+    ]
+  },
+  {
+    "name": "ABHIMANYU",
+    "originalName": "ABHIMANYU",
+    "department": "CSE",
+    "year": "I",
+    "members": [
+      {
+        "name": "Talasila Hrishita",
+        "roll": "26WH1A05V1",
+        "phone": "7075777203"
+      },
+      {
+        "name": "YALAVARTHI AISHWARYA",
+        "roll": "26WH1A05T3",
+        "phone": "9493612809"
+      }
+    ]
+  },
+  {
+    "name": "Challengers",
+    "originalName": "Challengers",
+    "department": "CSE",
+    "year": "I",
+    "members": [
+      {
+        "name": "Ponnaganti Dhanvi",
+        "roll": "26WH1A05F8",
+        "phone": "+91 94903 37407"
+      },
+      {
+        "name": "Bhavika Akula",
+        "roll": "26WH1A05H9",
+        "phone": "+91 9347865822"
+      }
+    ]
+  },
+  {
+    "name": "Double trouble",
+    "originalName": "Double trouble",
+    "department": "CSE",
+    "year": "I",
+    "members": [
+      {
+        "name": "MOKSHA",
+        "roll": "26WH1A05T8",
+        "phone": "8919645332"
+      },
+      {
+        "name": "Sankeerthana",
+        "roll": "26WH1A05U5",
+        "phone": "7659988422"
+      }
+    ]
+  },
+  {
+    "name": "Dynamic duo",
+    "originalName": "Dynamic duo",
+    "department": "CSE",
+    "year": "I",
+    "members": [
+      {
+        "name": "Srihitha Reddy",
+        "roll": "26WH1A0582",
+        "phone": "9908797395"
+      },
+      {
+        "name": "Angel",
+        "roll": "26WH1A0578",
+        "phone": "9949886395"
+      }
+    ]
+  },
+  {
+    "name": "Mission Masters",
+    "originalName": "Mission Masters",
+    "department": "CSE",
+    "year": "I",
+    "members": [
+      {
+        "name": "T Thishya",
+        "roll": "26WH1A0549",
+        "phone": "9492506280"
+      },
+      {
+        "name": "V Kalpana",
+        "roll": "26WH1A0501",
+        "phone": "9553185857"
+      }
+    ]
+  },
+  {
+    "name": "Team Roasters",
+    "originalName": "Team Roasters",
+    "department": "CSE",
+    "year": "I",
+    "members": [
+      {
+        "name": "Rudrabhotla Sreelasya",
+        "roll": "26WH1A0598",
+        "phone": "9494517049"
+      },
+      {
+        "name": "V.Preethika",
+        "roll": "26WH1A0569",
+        "phone": "9121857253"
+      }
+    ]
+  },
+  {
+    "name": "Tech titans",
+    "originalName": "Tech titans",
+    "department": "CSE",
+    "year": "I",
+    "members": [
+      {
+        "name": "Thota Varshini",
+        "roll": "26WH1A05Z3",
+        "phone": "8522951747"
+      },
+      {
+        "name": "Rajabathula Bhuvana Kruthi",
+        "roll": "26WH1A05AA",
+        "phone": "8985838780"
+      }
+    ]
+  },
+  {
+    "name": "Code Crusaders",
+    "originalName": "Code Crusaders",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "SATHI SEETHA REDDY",
+        "roll": "25WH1A05T4",
+        "phone": "9347844444"
+      },
+      {
+        "name": "KOTA NIHARIKA",
+        "roll": "25WH1A05W1",
+        "phone": "7993749700"
+      }
+    ]
+  },
+  {
+    "name": "Code core",
+    "originalName": "Code core",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Sharvani Donthula",
+        "roll": "25WH1A05U9",
+        "phone": "9290502851"
+      },
+      {
+        "name": "Reddy Pranavi",
+        "roll": "25WH1A05CH",
+        "phone": "9121136610"
+      }
+    ]
+  },
+  {
+    "name": "CodeChef",
+    "originalName": "CodeChef",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Garikapati Meghana",
+        "roll": "25WH1A05D2",
+        "phone": "9493028808"
+      },
+      {
+        "name": "Aasifa Zaina",
+        "roll": "25WH1A05E2",
+        "phone": "9849493960"
+      }
+    ]
+  },
+  {
+    "name": "CodeFusion",
+    "originalName": "CodeFusion",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Sura Vaishnavi",
+        "roll": "26wh5a0514",
+        "phone": "9381341756"
+      },
+      {
+        "name": "Singupuram Bhagya sree",
+        "roll": "26wh5a0518",
+        "phone": "8712387505"
+      }
+    ]
+  },
+  {
+    "name": "Codenova",
+    "originalName": "Codenova",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "A.Aashritha",
+        "roll": "25wh1a05j1",
+        "phone": "9121076469"
+      },
+      {
+        "name": "R.Nainika",
+        "roll": "25wh1a05j0",
+        "phone": "6303341970"
+      }
+    ]
+  },
+  {
+    "name": "Decrypters",
+    "originalName": "Decrypters",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "J.Sriya",
+        "roll": "25WH1A05E4",
+        "phone": "9121118394"
+      },
+      {
+        "name": "E.Kamal Hasini",
+        "roll": "25WH1A05F0",
+        "phone": "77027 74826"
+      }
+    ]
+  },
+  {
+    "name": "Double fault",
+    "originalName": "Double fault",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Patel Bindu Madhavi",
+        "roll": "25WH1A0501",
+        "phone": "6309906063"
+      },
+      {
+        "name": "Kilugu Bhavya",
+        "roll": "25WH1A0552",
+        "phone": "9963439929"
+      }
+    ]
+  },
+  {
+    "name": "Get cooked already",
+    "originalName": "Get cooked already",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Bele.Hasini",
+        "roll": "26WH5A0513",
+        "phone": "8978054030"
+      },
+      {
+        "name": "K.Vasudha",
+        "roll": "26WH5A0516",
+        "phone": "7842747235"
+      }
+    ]
+  },
+  {
+    "name": "Giga chefs",
+    "originalName": "Giga chefs",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "D.Aishwarya",
+        "roll": "25WH1A05J9",
+        "phone": "8790478874"
+      },
+      {
+        "name": "R.spandana",
+        "roll": "25WH1A05K0",
+        "phone": "93988 54316"
+      }
+    ]
+  },
+  {
+    "name": "Havkzen",
+    "originalName": "Havkzen",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Aditi Jena",
+        "roll": "25wh1a05v8",
+        "phone": "8885842472"
+      },
+      {
+        "name": "Hansika",
+        "roll": "25wh1a05v5",
+        "phone": "9182195778"
+      }
+    ]
+  },
+  {
+    "name": "Infinite Crackers",
+    "originalName": "Infinite Crackers",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Akiti Sanjana Reddy",
+        "roll": "25WH1A05T3",
+        "phone": "9494070425"
+      },
+      {
+        "name": "Jesmitha Manogna Ravi",
+        "roll": "25WH1A05T9",
+        "phone": "8433711552"
+      }
+    ]
+  },
+  {
+    "name": "InnovateX",
+    "originalName": "InnovateX",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Chakrika Reddy Uppaluru",
+        "roll": "25WH1A05AB",
+        "phone": "6281824940"
+      },
+      {
+        "name": "U Sai Mahi Varshitha",
+        "roll": "25WH1A05BF",
+        "phone": "9390893880"
+      }
+    ]
+  },
+  {
+    "name": "NO CAP",
+    "originalName": "NO CAP",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Rujula Sadhu",
+        "roll": "25wh1a05ay",
+        "phone": "9701184375"
+      },
+      {
+        "name": "Medhasvi",
+        "roll": "25wh1a05z3",
+        "phone": "77998 83385"
+      }
+    ]
+  },
+  {
+    "name": "NOVA",
+    "originalName": "NOVA",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Donthala Haasini",
+        "roll": "25WH1A05F2",
+        "phone": "9573195705"
+      },
+      {
+        "name": "Varshini Maddula",
+        "roll": "25WH1A05E7",
+        "phone": "8106988775"
+      }
+    ]
+  },
+  {
+    "name": "Nova squad",
+    "originalName": "Nova squad",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Hema",
+        "roll": "25wh1a0589",
+        "phone": "74167 28190"
+      },
+      {
+        "name": "Sahasra",
+        "roll": "25wh1a05u6",
+        "phone": "9666965299"
+      }
+    ]
+  },
+  {
+    "name": "NovaTech",
+    "originalName": "NovaTech",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "JAYAMANGALA SWARUPA",
+        "roll": "25WH1A05BY",
+        "phone": "7075026724"
+      },
+      {
+        "name": "BYRI SHRAVYA",
+        "roll": "25WH1A05BM",
+        "phone": "8019623841"
+      }
+    ]
+  },
+  {
+    "name": "Phoenix",
+    "originalName": "Phoenix",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Brahmani",
+        "roll": "25WH1A05Z4",
+        "phone": "8463979999"
+      },
+      {
+        "name": "Jasmitha",
+        "roll": "25WH1A05Z5",
+        "phone": "7032194904"
+      }
+    ]
+  },
+  {
+    "name": "Pixel (AKUTHOTA)",
+    "originalName": "Pixel",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "AKUTHOTA MANOGNA",
+        "roll": "25WH1A05X1",
+        "phone": "9381582008"
+      },
+      {
+        "name": "VADDEPALLY SRINIDHI",
+        "roll": "25WH1A05X3",
+        "phone": "88856 02519"
+      }
+    ]
+  },
+  {
+    "name": "Pixel (Pentrala)",
+    "originalName": "Pixel",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Pentrala Bhuvana kruthi",
+        "roll": "25WH1A05K9",
+        "phone": "9030298641"
+      },
+      {
+        "name": "Gopu ruhnvina",
+        "roll": "25WH1A05L0",
+        "phone": "9652362316"
+      }
+    ]
+  },
+  {
+    "name": "Quantum",
+    "originalName": "Quantum",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Boorla Sai Kritika",
+        "roll": "25WH1A05E0",
+        "phone": "8978094646"
+      },
+      {
+        "name": "Gillala Dhruthiya",
+        "roll": "25WH1A0D6",
+        "phone": "9908740624"
+      }
+    ]
+  },
+  {
+    "name": "Raw Input, Burnt Output",
+    "originalName": "Raw Input, Burnt Output",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Dareddy Tanusree",
+        "roll": "25WH1A05F6",
+        "phone": "9704984111"
+      },
+      {
+        "name": "Naga Jahnavi Bandarupalli",
+        "roll": "25WH1A05D1",
+        "phone": "7794930126"
+      }
+    ]
+  },
+  {
+    "name": "Slayers",
+    "originalName": "Slayers",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "K.V.Sai Varshini",
+        "roll": "25wh1a0554",
+        "phone": "9347823389"
+      },
+      {
+        "name": "E.Ruchitha Sree",
+        "roll": "25wh1a6634",
+        "phone": "9392701761"
+      }
+    ]
+  },
+  {
+    "name": "Team Cipher",
+    "originalName": "Team Cipher",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Konukati Aashritha",
+        "roll": "25WH1A05F7",
+        "phone": "9347230836"
+      },
+      {
+        "name": "Kalidindi Sharanya",
+        "roll": "25WH1A05G4",
+        "phone": "9177243637"
+      }
+    ]
+  },
+  {
+    "name": "Team hustlers",
+    "originalName": "Team hustlers",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Bakki Sahasra Rao",
+        "roll": "25WH1A05K3",
+        "phone": "9381578010"
+      },
+      {
+        "name": "Raavi Lakshmi priya",
+        "roll": "25WH1A05H9",
+        "phone": "9381106306"
+      }
+    ]
+  },
+  {
+    "name": "Tech sparks",
+    "originalName": "Tech sparks",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "B.vaishnavi",
+        "roll": "25WH1A05BL",
+        "phone": "80743 83179"
+      },
+      {
+        "name": "M.Divya",
+        "roll": "25WH1A05BD",
+        "phone": "9989805142"
+      }
+    ]
+  },
+  {
+    "name": "TechNova",
+    "originalName": "TechNova",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Krithi Koduri",
+        "roll": "25WH1A05K1",
+        "phone": "7416016864"
+      },
+      {
+        "name": "Geethika Allada",
+        "roll": "25WH1A05G6",
+        "phone": "9398769211"
+      }
+    ]
+  },
+  {
+    "name": "Techies",
+    "originalName": "Techies",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "MOLUGU LAXMI SAHASRA",
+        "roll": "25WH1A05AR",
+        "phone": "6305022591"
+      },
+      {
+        "name": "JAMA SOWMYA",
+        "roll": "25WH1A05AQ",
+        "phone": "8919276677"
+      }
+    ]
+  },
+  {
+    "name": "Techora",
+    "originalName": "Techora",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "R Sree Laxmi Madhuri",
+        "roll": "25wh1a05l5",
+        "phone": "7569125602"
+      },
+      {
+        "name": "Bhupathiraju Rohitha",
+        "roll": "25wh1a05m1",
+        "phone": "7997230707"
+      }
+    ]
+  },
+  {
+    "name": "oo",
+    "originalName": "oo",
+    "department": "CSE",
+    "year": "II",
+    "members": [
+      {
+        "name": "Sridivya Damarla",
+        "roll": "25WH1A05C8",
+        "phone": "8341117879"
+      },
+      {
+        "name": "Nigama Rayala",
+        "roll": "25WH1A0598",
+        "phone": "7569633236"
+      }
+    ]
+  },
+  {
+    "name": "Bug.exe",
+    "originalName": "Bug.exe",
+    "department": "CSE",
+    "year": "III",
+    "members": [
+      {
+        "name": "S.Ritika",
+        "roll": "24wh1a05b6",
+        "phone": "97019 23503"
+      },
+      {
+        "name": "V Swathi",
+        "roll": "24wh1a0575",
+        "phone": "9676113505"
+      }
+    ]
+  },
+  {
+    "name": "Rhombus",
+    "originalName": "Rhombus",
+    "department": "CSE",
+    "year": "III",
+    "members": [
+      {
+        "name": "Guntaka Himavarsha",
+        "roll": "24WH1A0569",
+        "phone": "9885488983"
+      },
+      {
+        "name": "Tejaswini Rajuri",
+        "roll": "24WH1A05B3",
+        "phone": "70572 61757"
+      }
+    ]
+  },
+  {
+    "name": "Celestials",
+    "originalName": "Celestials",
+    "department": "ECE",
+    "year": "I",
+    "members": [
+      {
+        "name": "Shiphra Rose",
+        "roll": "26WH1A5V5",
+        "phone": "8121426375"
+      },
+      {
+        "name": "Niharika",
+        "roll": "26WH1A05X8",
+        "phone": "7569887986"
+      }
+    ]
+  },
+  {
+    "name": "Duo-Diva",
+    "originalName": "Duo-Diva",
+    "department": "ECE",
+    "year": "I",
+    "members": [
+      {
+        "name": "CHOUDAVARAM BHARGAVI",
+        "roll": "26WH1A04B0",
+        "phone": "9676181491"
+      },
+      {
+        "name": "PEDASANGANTI LAKSHMI PRIYANKA",
+        "roll": "26WH1A04A6",
+        "phone": "9705461329"
+      }
+    ]
+  },
+  {
+    "name": "CodeX",
+    "originalName": "CodeX",
+    "department": "ECE",
+    "year": "II",
+    "members": [
+      {
+        "name": "K.Manogna",
+        "roll": "25WH1A0467",
+        "phone": "8309039959"
+      },
+      {
+        "name": "V.Lasya",
+        "roll": "25WH1A0465",
+        "phone": "7675820202"
+      }
+    ]
+  },
+  {
+    "name": "DEBUG DUO",
+    "originalName": "DEBUG DUO",
+    "department": "ECE",
+    "year": "II",
+    "members": [
+      {
+        "name": "M.Meghana",
+        "roll": "25WH1A0473",
+        "phone": "8143214963"
+      },
+      {
+        "name": "K.D.P Taruni Chandra",
+        "roll": "25WH1A0495",
+        "phone": "9959295168"
+      }
+    ]
+  },
+  {
+    "name": "Quantum coders",
+    "originalName": "Quantum coders",
+    "department": "EEE",
+    "year": "I",
+    "members": [
+      {
+        "name": "Sri Ragini",
+        "roll": "26WH1A0216",
+        "phone": "8179824587"
+      },
+      {
+        "name": "N. Bhavya",
+        "roll": "26WH1A0207",
+        "phone": "9559995123"
+      }
+    ]
+  }
+]

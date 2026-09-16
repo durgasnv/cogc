@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { getRandomCongratsImage, getRandomSorryImage } from '@/lib/memes';
 
-const ROUND_SECONDS = 900; // 15 minutes
+const ROUND_SECONDS = 600; // 10 minutes for tight 90m event schedule
 const ADVANCE_DELAY_MS = 450;
 
 function shuffle(arr) {
@@ -265,7 +265,7 @@ function PlayInner() {
       <div className="center-screen">
         <div className="card card-lg text-center" style={{ maxWidth: 500, border: '1px solid rgba(229, 9, 20, 0.4)' }}>
           <p className="eyebrow mb-8" style={{ color: 'var(--red)' }}>Round 2 &middot; Tech Elimination</p>
-          <h1 style={{ fontSize: 32, marginBottom: 16 }}>15 Minutes &middot; 25 Standard Questions</h1>
+          <h1 style={{ fontSize: 32, marginBottom: 16 }}>10 Minutes &middot; 25 Standard Questions</h1>
           <p className="muted mb-24" style={{ fontSize: 14, lineHeight: 1.6 }}>
             Answer 25 balanced questions across <strong>Python, C, Java, Logic & General Tech</strong>.
             <br />
