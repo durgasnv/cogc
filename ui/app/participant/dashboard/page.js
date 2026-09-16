@@ -45,21 +45,37 @@ export default function ParticipantDashboard() {
     );
   }
 
-  const { team, phases, round3, round5, isEliminated, eliminatedInRound } = data;
+  const { team, phases, round3, round5, isEliminated, eliminatedInRound, isTestTeam } = data;
   const p2 = phases?.[2] || {};
   const r3 = round3 || {};
 
-  // Check specific elimination thresholds
-  const eliminatedInR2 = p2.revealed && p2.passed === false;
-  const eliminatedInR3 = r3.score && r3.passed === false;
-  const cannotPlayR3 = eliminatedInR2;
-  const cannotPlayR5 = eliminatedInR2 || eliminatedInR3;
+  async function handleResetMyData() {
+    if (!confirm('Reset your test scores so you can test all rounds from the beginning?')) return;
+    try {
+      const res = await fetch('/api/team/reset-me', { method: 'POST' });
+      if (res.ok) {
+        alert('Test data reset! You can now re-test rounds.');
+        load();
+      }
+    } catch {
+      alert('Failed to reset test data.');
+    }
+  }
+
+  // Check specific elimination thresholds (bypassed if test team)
+  const eliminatedInR2 = !isTestTeam && p2.revealed && p2.passed === false;
+  const eliminatedInR3 = !isTestTeam && r3.score && r3.passed === false;
+  const cannotPlayR3 = !isTestTeam && eliminatedInR2;
+  const cannotPlayR5 = !isTestTeam && (eliminatedInR2 || eliminatedInR3);
 
   return (
     <div className="page">
       <nav className="topnav">
         <span className="brand">COOK <span>OR GET COOKED</span></span>
         <div className="nav-actions">
+          {isTestTeam && (
+            <span className="chip gold" style={{ fontWeight: 'bold' }}>🧪 TESTER MODE</span>
+          )}
           <span className="chip" style={{ color: 'var(--white)', borderColor: isEliminated ? 'var(--red)' : 'var(--green)', fontFamily: 'var(--font-mono)' }}>
             Team: {team.name} {isEliminated ? '💀' : '🔥'}
           </span>
@@ -83,6 +99,27 @@ export default function ParticipantDashboard() {
         <p className="muted mb-24" style={{ fontSize: 15 }}>
           Follow your tournament progress. Results update automatically when host controller reveals stages.
         </p>
+
+        {/* Tester Mode Banner */}
+        {isTestTeam && (
+          <div className="card mb-24" style={{ border: '2px solid var(--gold)', background: 'rgba(245,197,24,0.06)', padding: 18, borderRadius: 12 }}>
+            <div className="row-between" style={{ flexWrap: 'wrap', gap: 12 }}>
+              <div>
+                <span className="chip gold" style={{ fontWeight: 'bold' }}>🧪 DEV TESTER ACTIVE</span>
+                <p className="small muted" style={{ margin: '6px 0 0', lineHeight: 1.5 }}>
+                  Logged in as <strong>{team.name}</strong>. All phase restrictions &amp; lockouts are bypassed for end-to-end testing.
+                </p>
+              </div>
+              <button
+                className="btn btn-ghost btn-sm"
+                onClick={handleResetMyData}
+                style={{ borderColor: 'var(--gold)', color: 'var(--gold)', fontFamily: 'var(--font-mono)', fontWeight: 'bold' }}
+              >
+                🔄 Reset My Test Scores &amp; Re-Test
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Global Elimination Notice Banner */}
         {isEliminated && (

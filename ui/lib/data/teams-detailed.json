@@ -898,5 +898,18 @@
         "phone": "9559995123"
       }
     ]
+  },
+  {
+    "name": "Dev Tester",
+    "originalName": "Dev Tester",
+    "department": "TESTING",
+    "year": "QA",
+    "members": [
+      {
+        "name": "Host Developer",
+        "roll": "QA-TEST-01",
+        "phone": "9999999999"
+      }
+    ]
   }
 ]
