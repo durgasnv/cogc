@@ -172,12 +172,12 @@ export default function Round3PlayPage() {
             Spot which solution is Human and which is AI.
           </p>
           <div className="row-between small mono muted mb-24" style={{ background: 'var(--bg-input)', padding: '14px 18px', borderRadius: 8 }}>
-            <span>TIME: <strong style={{ color: 'var(--red-light)' }}>5:00</strong></span>
+            <span>TIME: <strong style={{ color: 'var(--red-light)' }}>15:00</strong></span>
             <span>TOTAL QUESTIONS: <strong style={{ color: 'var(--white)' }}>20</strong></span>
             <span>PASS CUTOFF: <strong style={{ color: 'var(--green)' }}>60%</strong></span>
           </div>
           <button className="btn btn-primary btn-block" style={{ fontSize: 16, padding: '14px' }} onClick={startRound}>
-            Start 20 Turing Challenges (5m)
+            Start 20 Turing Challenges (15m)
           </button>
         </div>
       </div>

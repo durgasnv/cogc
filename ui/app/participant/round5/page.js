@@ -125,7 +125,7 @@ export default function Round5PlayPage() {
           </div>
 
           <button className="btn btn-primary btn-block" style={{ height: 48, fontSize: 16 }} onClick={startRound}>
-            Enter Finale Chamber (10:00)
+            Enter Finale Chamber (15:00)
           </button>
         </div>
       </div>

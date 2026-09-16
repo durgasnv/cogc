@@ -1,6 +1,6 @@
 import cDebugData from './data/c-debug-questions.json';
 
-export const ROUND5_TIME_LIMIT_SECONDS = 600; // 10 minutes for fast-paced 90m finale
+export const ROUND5_TIME_LIMIT_SECONDS = 900; // 15 minutes for Grand Finale
 export const ROUND5_PASS_PERCENTAGE = 70;
 
 export const cDebugQuestions = cDebugData;

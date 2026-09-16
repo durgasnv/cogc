@@ -316,14 +316,14 @@ export const MASTER_TURING_QUESTIONS = [
   }
 ];
 
-export const ROUND3_TIME_LIMIT_SECONDS = 240; // 4 minutes (240s) for rapid 90m event pacing
-export const ROUND3_PASS_PERCENTAGE = 60; // 60% passing cutoff (9/15)
+export const ROUND3_TIME_LIMIT_SECONDS = 900; // 15 minutes (900s)
+export const ROUND3_PASS_PERCENTAGE = 60; // 60% passing cutoff (12/20)
 
 /**
  * Samples count random questions from the master question bank,
  * and randomly flips Solution A and Solution B so teams never have identical layouts.
  */
-export function sampleRandomRound3Questions(count = 15) {
+export function sampleRandomRound3Questions(count = 20) {
   const pool = MASTER_TURING_QUESTIONS.slice();
   // Fisher-Yates shuffle
   for (let i = pool.length - 1; i > 0; i--) {
