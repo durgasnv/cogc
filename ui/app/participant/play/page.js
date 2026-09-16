@@ -4,6 +4,7 @@ import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { getRandomCongratsImage, getRandomSorryImage } from '@/lib/memes';
+import AntiCheatShield from '@/components/AntiCheatShield';
 
 const ROUND_SECONDS = 900; // 15 minutes
 const ADVANCE_DELAY_MS = 450;
@@ -446,6 +447,7 @@ function PlayInner() {
 
   return (
     <div className="page">
+      <AntiCheatShield enabled={status === 'playing' || status === 'bonus_decision'} roundName="Round 2" />
       <div className="container quiz-wrap">
         <div className="timer-row">
           <div className="timer-label">

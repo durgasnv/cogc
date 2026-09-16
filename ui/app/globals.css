@@ -111,6 +111,14 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; margin: 0; lett
 }
 .card-lg { padding: 36px; }
 
+/* ---------- Anti-Cheat Protection ---------- */
+.anti-cheat-protected, .q-card, .turing-card {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+}
+
 .poster-card {
   background: linear-gradient(160deg, var(--bg-panel-2), var(--bg-panel));
   border: 1px solid var(--border);

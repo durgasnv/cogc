@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { sampleRandomRound3Questions, ROUND3_TIME_LIMIT_SECONDS, ROUND3_PASS_PERCENTAGE } from '@/lib/round3TuringData';
 import { getRandomCongratsImage, getRandomSorryImage } from '@/lib/memes';
+import AntiCheatShield from '@/components/AntiCheatShield';
 
 function fmtClock(sec) {
   const m = Math.floor(sec / 60), s = sec % 60;
@@ -308,6 +309,7 @@ export default function Round3PlayPage() {
 
   return (
     <div className="page">
+      <AntiCheatShield enabled={status === 'playing'} roundName="Round 3" />
       <nav className="topnav">
         <span className="brand">COOK <span>OR GET COOKED</span></span>
         <div className="nav-actions">

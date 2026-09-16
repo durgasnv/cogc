@@ -8,9 +8,9 @@ import {
   getCDebugSet,
   ROUND5_TIME_LIMIT_SECONDS,
   SUITCASE_LOCK_CONFIG,
-  verifySuitcaseLock,
 } from '@/lib/round5Data';
 import { getRandomCongratsImage, getRandomSorryImage } from '@/lib/memes';
+import AntiCheatShield from '@/components/AntiCheatShield';
 
 function fmtClock(sec) {
   const m = Math.floor(sec / 60), s = sec % 60;
@@ -69,20 +69,25 @@ export default function Round5PlayPage() {
     }
   }
 
-  function handleUnlockAttempt() {
+  async function handleUnlockAttempt() {
     const entered = suitcaseDigits.join('');
     if (entered.length < 9) {
       setLockFeedback({ success: false, message: 'Please enter all 9 digits of the suitcase combination.' });
       return;
     }
-    const result = verifySuitcaseLock(entered);
-    if (result.valid) {
-      setLockFeedback({ success: true, message: '🎉 CLOUD CHEST UNLOCKED! Grand Finale combination verified!' });
-    } else {
-      setLockFeedback({
-        success: false,
-        message: '🔒 Incorrect combination. Check your 3 C code outputs and try again! (Test lock code pending admin load)',
+    try {
+      const res = await fetch('/api/team/round5/unlock', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: entered }),
       });
+      const data = await res.json();
+      setLockFeedback({
+        success: data.valid,
+        message: data.message || (data.valid ? '🎉 SUITCASE UNLOCKED!' : '🔒 Incorrect combination.'),
+      });
+    } catch {
+      setLockFeedback({ success: false, message: 'Network error verifying code. Try again.' });
     }
   }
 
@@ -164,6 +169,7 @@ export default function Round5PlayPage() {
 
   return (
     <div className="page">
+      <AntiCheatShield enabled={status === 'playing'} roundName="Round 5" />
       <div className="container" style={{ maxWidth: 1080, margin: '0 auto', padding: '20px 16px' }}>
         {/* Top Header & Countdown */}
         <div className="row-between mb-16" style={{ alignItems: 'center' }}>
