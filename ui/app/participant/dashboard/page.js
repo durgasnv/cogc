@@ -218,26 +218,30 @@ export default function ParticipantDashboard() {
           )}
         </div>
 
-        {/* --- ROUND 4: AUDITORIUM STAGE CHARADES --- */}
-        <div className="poster-card mb-20" style={{ opacity: cannotPlayR5 ? 0.6 : 1, cursor: 'default' }}>
-          <div className="row-between mb-8">
-            <div>
-              <span className="eyebrow" style={{ color: '#00E5FF' }}>Round 4 &middot; Stage Event</span>
-              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 32, marginTop: 4, letterSpacing: '0.02em' }}>
-                Tech Charades &amp; Stage Relay
-              </h3>
+        {/* --- ROUND 4: AUDITORIUM BUZZER CHARADES --- */}
+        <Link href="/participant/round4" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
+          <div className="poster-card mb-20" style={{ border: '1px solid #00E5FF', boxShadow: '0 0 20px rgba(0,229,255,0.15)', cursor: 'pointer' }}>
+            <div className="row-between mb-8">
+              <div>
+                <span className="eyebrow" style={{ color: '#00E5FF' }}>Round 4 &middot; Live Buzzer Arena</span>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 32, marginTop: 4, letterSpacing: '0.02em' }}>
+                  Telugu Cinema &amp; Tech Charades 🎭
+                </h3>
+              </div>
+              <span className="chip" style={{ color: '#00E5FF', borderColor: '#00E5FF', background: 'rgba(0,229,255,0.1)' }}>
+                🚨 LIVE BUZZER OPEN
+              </span>
             </div>
-            <span className="chip" style={{ color: '#00E5FF', borderColor: '#00E5FF' }}>Auditorium Stage</span>
+            <div className="row-between">
+              <p className="muted small">
+                Watch the stage performance and slam your laptop buzzer to guess the movie or tech prompt first!
+              </p>
+              <span className="btn btn-sm btn-primary" style={{ background: '#00E5FF', color: '#000', fontWeight: 'bold' }}>
+                Enter Buzzer Arena &rarr;
+              </span>
+            </div>
           </div>
-          <div className="row-between">
-            <p className="muted small">
-              Live auditorium game conducted by the host on stage. Top 4 teams qualify for the Grand Finale!
-            </p>
-            <span className="chip" style={{ background: 'rgba(255,255,255,0.05)', color: '#aaa' }}>
-              Host Conducted
-            </span>
-          </div>
-        </div>
+        </Link>
 
         {/* --- ROUND 5: GRAND FINALE --- */}
         <div className="poster-card mb-20" style={{ opacity: cannotPlayR5 ? 0.6 : 1, cursor: 'default', border: !cannotPlayR5 ? '1px solid var(--gold)' : undefined }}>

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import charadesWords from '@/lib/data/charades-words.json';
 
 async function api(path, opts) {
   const res = await fetch(path, {
@@ -811,41 +812,39 @@ function Round5Tab({ teams }) {
   );
 }
 
-// =================== Round 4 Tab (Tech Charades Prompter & Timer) ===================
-const CHARADES_WORDS = [
-  // Tech Actions & Situations
-  { term: 'Merge Conflict', category: 'Tech Actions', hint: 'Two devs fighting over code' },
-  { term: 'Rubber Duck Debugging', category: 'Tech Actions', hint: 'Talking earnestly to a bath toy' },
-  { term: '404 Page Not Found', category: 'Tech Jargon', hint: 'Looking through binoculars, lost' },
-  { term: 'Spaghetti Code', category: 'Tech Concepts', hint: 'Slurping noodles while typing fast' },
-  { term: 'Infinite Loop', category: 'Tech Concepts', hint: 'Running in circles forever' },
-  { term: 'DDoS Attack', category: 'Tech Actions', hint: 'Everyone swarming and crashing one person' },
-  { term: 'Memory Leak', category: 'Tech Concepts', hint: 'Water dripping from brain/fingers' },
-  { term: 'Crypto Mining', category: 'Tech Actions', hint: 'Digging with a pickaxe while sweating' },
-  { term: 'Bluetooth Pairing Failed', category: 'Tech Blunders', hint: 'Holding hands and getting shocked apart' },
-  { term: 'Turning It Off and On Again', category: 'Tech Actions', hint: 'Flipping power switch dramatically' },
-  { term: 'Deadlock / Thread Lock', category: 'Tech Concepts', hint: 'Two people frozen waiting for each other' },
-  { term: 'Cloud Computing', category: 'Tech Concepts', hint: 'Floating and typing in the sky' },
-  { term: 'Wi-Fi Disconnected', category: 'Tech Blunders', hint: 'Frantically hunting for signals with phone' },
-  { term: 'Pushing Straight to Production', category: 'Tech Blunders', hint: 'Sweating and pressing big red button' },
-  { term: 'Git Pull with Uncommitted Changes', category: 'Tech Blunders', hint: 'Terrified face, explosion motion' },
-  // Movies & Pop Culture
-  { term: 'The Matrix (Bullet Dodge)', category: 'Tech Movies', hint: 'Leaning backward to dodge slow bullets' },
-  { term: 'Silicon Valley (Tres Comas)', category: 'Tech Movies', hint: 'Billionaire doors that go like this' },
-  { term: 'The Social Network (Facebook)', category: 'Tech Movies', hint: 'Typing barefoot in winter with headphones' },
-  { term: 'Iron Man (Jarvis Hologram)', category: 'Tech Movies', hint: 'Swiping invisible holograms in the air' },
-  { term: 'RoboCop / Terminator', category: 'Tech Movies', hint: 'Stiff robotic walk and red laser eye' },
-  { term: 'Interstellar (TARS Robot)', category: 'Tech Movies', hint: 'Walking like a tall rectangular block' },
-];
-
+// =================== Round 4 Tab (Telugu Cinema & Tech Buzzer Charades) ===================
 function Round4Tab({ teams }) {
-  const [currentWord, setCurrentWord] = useState(CHARADES_WORDS[0]);
+  const [currentWord, setCurrentWord] = useState(charadesWords[0]);
   const [revealed, setRevealed] = useState(false);
   const [selectedCat, setSelectedCat] = useState('All');
   const [time, setTime] = useState(60);
   const [isRunning, setIsRunning] = useState(false);
   const [scores, setScores] = useState({});
+  const [buzzerOpen, setBuzzerOpen] = useState(false);
+  const [firstBuzz, setFirstBuzz] = useState(null);
+  const [busy, setBusy] = useState(false);
 
+  // Poll live round 4 state every 1.2 seconds
+  const loadState = useCallback(async () => {
+    try {
+      const res = await api('/api/round4/state');
+      if (res) {
+        setBuzzerOpen(!!res.buzzerOpen);
+        setFirstBuzz(res.firstBuzz || null);
+        if (res.scores) setScores(res.scores);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  useEffect(() => {
+    loadState();
+    const interval = setInterval(loadState, 1200);
+    return () => clearInterval(interval);
+  }, [loadState]);
+
+  // Stage Timer
   useEffect(() => {
     let interval = null;
     if (isRunning && time > 0) {
@@ -856,38 +855,203 @@ function Round4Tab({ teams }) {
     return () => clearInterval(interval);
   }, [isRunning, time]);
 
-  function pickRandomWord() {
-    const pool = selectedCat === 'All' 
-      ? CHARADES_WORDS 
-      : CHARADES_WORDS.filter((w) => w.category === selectedCat);
+  async function sendControl(action, payload = {}) {
+    setBusy(true);
+    try {
+      await api('/api/admin/round4/control', {
+        method: 'POST',
+        body: JSON.stringify({ action, ...payload }),
+      });
+      await loadState();
+    } catch (e) {
+      alert(`Error: ${e.message}`);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function openBuzzer() {
+    await sendControl('open_buzzer');
+  }
+
+  async function lockBuzzer() {
+    await sendControl('close_buzzer');
+  }
+
+  async function resetBuzzer() {
+    await sendControl('reset_buzzer');
+  }
+
+  async function pickRandomWord() {
+    const pool = selectedCat === 'All'
+      ? charadesWords
+      : charadesWords.filter((w) => w.category === selectedCat);
     const filtered = pool.filter((w) => w.term !== currentWord?.term);
     const next = filtered[Math.floor(Math.random() * (filtered.length || 1))] || pool[0];
     setCurrentWord(next);
     setRevealed(false);
     setTime(60);
     setIsRunning(false);
+    await sendControl('set_word', { word: next });
   }
 
-  function adjustTeamScore(teamId, delta) {
-    setScores((prev) => ({
-      ...prev,
-      [teamId]: Math.max(0, (prev[teamId] || 0) + delta),
-    }));
+  async function handleCorrectRuling() {
+    if (!firstBuzz?.teamId) return;
+    await sendControl('award_points', { teamId: firstBuzz.teamId, delta: 100 });
+    await sendControl('reset_buzzer');
   }
 
-  const categories = ['All', 'Tech Actions', 'Tech Concepts', 'Tech Blunders', 'Tech Movies'];
+  async function handleWrongRuling() {
+    if (!firstBuzz?.teamId) return;
+    await sendControl('award_points', { teamId: firstBuzz.teamId, delta: -25 });
+    // Re-open buzzer immediately for remaining teams to steal
+    await sendControl('open_buzzer');
+  }
+
+  async function adjustTeamScore(teamId, delta) {
+    await sendControl('award_points', { teamId, delta });
+  }
+
+  async function resetAllRound4Scores() {
+    if (!confirm('Are you sure you want to reset all Round 4 scores and buzzers?')) return;
+    await sendControl('reset_scores');
+  }
+
+  const categories = ['All', 'Telugu Movies 🎬', 'Tech Actions', 'Tech Concepts', 'Tech Blunders'];
 
   return (
     <div>
+      {/* Real-time Buzzer Control Banner */}
+      <div
+        className="card mb-24 text-center"
+        style={{
+          border: firstBuzz ? '2px solid var(--green)' : buzzerOpen ? '2px solid var(--gold)' : '1px solid #333',
+          background: firstBuzz
+            ? 'linear-gradient(180deg, rgba(0,230,118,0.15) 0%, #111 100%)'
+            : buzzerOpen
+            ? 'linear-gradient(180deg, rgba(255,187,0,0.12) 0%, #111 100%)'
+            : '#111',
+          padding: '28px 20px',
+          boxShadow: firstBuzz
+            ? '0 0 35px rgba(0,230,118,0.3)'
+            : buzzerOpen
+            ? '0 0 35px rgba(255,187,0,0.2)'
+            : 'none',
+        }}
+      >
+        <div className="row-between mb-16" style={{ alignItems: 'center' }}>
+          <span className="eyebrow" style={{ color: buzzerOpen ? 'var(--gold)' : '#888' }}>
+            {buzzerOpen ? '🔥 BUZZER IS LIVE & ACCEPTING SLAMS' : '🔒 BUZZER LOCKED'}
+          </span>
+          <span className={`chip ${buzzerOpen ? 'gold' : ''}`}>
+            {buzzerOpen ? 'STATUS: OPEN' : 'STATUS: CLOSED'}
+          </span>
+        </div>
+
+        {/* First Buzz Winner Alert */}
+        {firstBuzz ? (
+          <div style={{ padding: '16px 20px', background: 'rgba(0,0,0,0.6)', borderRadius: 12, border: '1px solid var(--green)', marginBottom: 20 }}>
+            <span className="chip green mb-8" style={{ fontSize: 13, padding: '4px 12px' }}>
+              ⚡ FIRST BUZZ REGISTERED
+            </span>
+            <h2 style={{ fontSize: 32, margin: '6px 0', color: 'var(--green)' }}>
+              🏆 {firstBuzz.teamName} BUZZED FIRST!
+            </h2>
+            <p className="mono muted mb-16" style={{ fontSize: 14 }}>
+              Reaction Time: <strong>{firstBuzz.elapsedSeconds} seconds</strong> &middot; Listen to their answer aloud!
+            </p>
+
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <button
+                className="btn btn-primary"
+                style={{ background: 'var(--green)', color: '#000', fontWeight: 'bold', fontSize: 16, padding: '10px 24px' }}
+                onClick={handleCorrectRuling}
+                disabled={busy}
+              >
+                ✅ Correct! (+100 Pts &amp; Close)
+              </button>
+              <button
+                className="btn btn-ghost"
+                style={{ borderColor: 'var(--red)', color: 'var(--red)', fontWeight: 'bold', fontSize: 16, padding: '10px 24px' }}
+                onClick={handleWrongRuling}
+                disabled={busy}
+              >
+                ❌ Wrong / Steal (-25 &amp; Re-Open)
+              </button>
+              <button className="btn btn-ghost" onClick={resetBuzzer} disabled={busy}>
+                Dismiss
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div style={{ marginBottom: 20 }}>
+            <h3 style={{ fontSize: 24, margin: '8px 0', color: buzzerOpen ? 'var(--gold)' : 'var(--white)' }}>
+              {buzzerOpen ? 'Laptops Ready: Teams can slam the buzzer!' : 'Buzzer is currently locked.'}
+            </h3>
+            <p className="muted small">
+              Click &quot;Open Buzzer&quot; as soon as the actor starts performing on stage.
+            </p>
+          </div>
+        )}
+
+        {/* Buzzer Trigger Controls */}
+        <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
+          {!buzzerOpen ? (
+            <button
+              className="btn btn-primary"
+              style={{
+                background: 'linear-gradient(135deg, #FFB800 0%, #E50914 100%)',
+                color: '#000',
+                fontWeight: 900,
+                fontSize: 18,
+                padding: '14px 34px',
+                fontFamily: 'var(--font-display)',
+                letterSpacing: '0.04em',
+              }}
+              onClick={openBuzzer}
+              disabled={busy}
+            >
+              🔔 OPEN BUZZER FOR TEAMS
+            </button>
+          ) : (
+            <button
+              className="btn btn-ghost"
+              style={{
+                borderColor: 'var(--red)',
+                color: 'var(--red)',
+                fontWeight: 'bold',
+                fontSize: 18,
+                padding: '14px 34px',
+                fontFamily: 'var(--font-display)',
+              }}
+              onClick={lockBuzzer}
+              disabled={busy}
+            >
+              🔒 LOCK BUZZER
+            </button>
+          )}
+
+          <button className="btn btn-ghost" onClick={resetBuzzer} disabled={busy}>
+            🔄 Reset Buzzer
+          </button>
+        </div>
+      </div>
+
+      {/* Prompter & Word Card */}
       <div className="card mb-24 text-center" style={{ padding: '32px 20px' }}>
-        <p className="eyebrow mb-12">Round 4 &middot; Stage Tech Charades Prompter</p>
-        
+        <p className="eyebrow mb-12">Round 4 &middot; Stage Prompter</p>
+
         {/* Category Filters */}
         <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginBottom: 24, flexWrap: 'wrap' }}>
           {categories.map((cat) => (
             <button
               key={cat}
               className={`btn btn-sm ${selectedCat === cat ? 'btn-primary' : 'btn-ghost'}`}
+              style={{
+                borderColor: cat.includes('Telugu') ? 'var(--gold)' : undefined,
+                color: selectedCat === cat ? '#000' : cat.includes('Telugu') ? 'var(--gold)' : undefined,
+                fontWeight: cat.includes('Telugu') ? 'bold' : undefined,
+              }}
               onClick={() => setSelectedCat(cat)}
             >
               {cat}
@@ -896,15 +1060,17 @@ function Round4Tab({ teams }) {
         </div>
 
         {/* Word Display Box */}
-        <div style={{
-          background: '#0d0d0d',
-          border: '2px solid var(--red)',
-          borderRadius: 14,
-          padding: '36px 20px',
-          maxWidth: 640,
-          margin: '0 auto 24px',
-          boxShadow: '0 0 35px rgba(229,9,20,0.25)',
-        }}>
+        <div
+          style={{
+            background: '#0d0d0d',
+            border: '2px solid var(--red)',
+            borderRadius: 14,
+            padding: '36px 20px',
+            maxWidth: 640,
+            margin: '0 auto 24px',
+            boxShadow: '0 0 35px rgba(229,9,20,0.25)',
+          }}
+        >
           <span className="chip mb-12" style={{ color: 'var(--gold)', borderColor: 'var(--gold)' }}>
             Category: {currentWord?.category}
           </span>
@@ -913,14 +1079,16 @@ function Round4Tab({ teams }) {
               <h1 style={{ fontSize: 44, margin: '12px 0', color: 'var(--white)', letterSpacing: 1 }}>
                 {currentWord?.term}
               </h1>
-              <p className="muted small mono">🎭 Host Hint: {currentWord?.hint}</p>
+              <p className="muted small mono" style={{ color: 'var(--gold)' }}>
+                🎭 Stage Acting Hint: {currentWord?.hint}
+              </p>
             </div>
           ) : (
             <div>
               <h1 style={{ fontSize: 36, margin: '12px 0', color: '#555', letterSpacing: 4 }}>
                 &bull; &bull; &bull; &bull; &bull; &bull; &bull;
               </h1>
-              <p className="muted small">Click Reveal to show word to Actor / Audience</p>
+              <p className="muted small">Click Reveal to show word to Actor &amp; Audience</p>
             </div>
           )}
         </div>
@@ -949,13 +1117,15 @@ function Round4Tab({ teams }) {
         {/* Live Stage Timer */}
         <div className="card text-center">
           <p className="eyebrow mb-12">Stage Turn Timer</p>
-          <div style={{
-            fontSize: 72,
-            fontFamily: 'monospace',
-            fontWeight: 'bold',
-            color: time <= 10 ? 'var(--red)' : time <= 20 ? 'var(--gold)' : 'var(--white)',
-            marginBottom: 16,
-          }}>
+          <div
+            style={{
+              fontSize: 72,
+              fontFamily: 'monospace',
+              fontWeight: 'bold',
+              color: time <= 10 ? 'var(--red)' : time <= 20 ? 'var(--gold)' : 'var(--white)',
+              marginBottom: 16,
+            }}
+          >
             00:{String(time).padStart(2, '0')}
           </div>
           <div style={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
@@ -965,10 +1135,22 @@ function Round4Tab({ teams }) {
             >
               {isRunning ? '⏸️ Pause' : '▶️ Start Timer'}
             </button>
-            <button className="btn btn-ghost" onClick={() => { setIsRunning(false); setTime(60); }}>
+            <button
+              className="btn btn-ghost"
+              onClick={() => {
+                setIsRunning(false);
+                setTime(60);
+              }}
+            >
               🔄 Reset 60s
             </button>
-            <button className="btn btn-ghost" onClick={() => { setIsRunning(false); setTime(90); }}>
+            <button
+              className="btn btn-ghost"
+              onClick={() => {
+                setIsRunning(false);
+                setTime(90);
+              }}
+            >
               90s
             </button>
           </div>
@@ -976,22 +1158,43 @@ function Round4Tab({ teams }) {
 
         {/* Live Stage Score Tracker */}
         <div className="card">
-          <p className="eyebrow mb-12">Round 4 Stage Point Tally</p>
-          <div style={{ maxHeight: 220, overflowY: 'auto' }}>
+          <div className="row-between mb-12">
+            <p className="eyebrow mb-0">Round 4 Stage Point Tally</p>
+            <button className="btn btn-ghost btn-sm" onClick={resetAllRound4Scores} style={{ fontSize: 11 }}>
+              Reset Scores
+            </button>
+          </div>
+          <div style={{ maxHeight: 240, overflowY: 'auto' }}>
             <table className="data-table">
-              <thead><tr><th>Team Name</th><th>Points</th><th>Action</th></tr></thead>
+              <thead>
+                <tr>
+                  <th>Team Name</th>
+                  <th>Points</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
               <tbody>
-                {teams.slice(0, 12).map((t) => (
+                {teams.slice(0, 16).map((t) => (
                   <tr key={t.id}>
-                    <td><strong>{t.name}</strong></td>
+                    <td>
+                      <strong>{t.name}</strong>
+                    </td>
                     <td className="mono" style={{ fontSize: 18, color: 'var(--gold)', fontWeight: 'bold' }}>
                       {scores[t.id] || 0} pts
                     </td>
                     <td>
-                      <button className="btn btn-ghost btn-sm" style={{ marginRight: 6 }} onClick={() => adjustTeamScore(t.id, 100)}>
+                      <button
+                        className="btn btn-ghost btn-sm"
+                        style={{ marginRight: 6, color: 'var(--green)' }}
+                        onClick={() => adjustTeamScore(t.id, 100)}
+                      >
                         +100
                       </button>
-                      <button className="btn btn-ghost btn-sm" onClick={() => adjustTeamScore(t.id, -25)}>
+                      <button
+                        className="btn btn-ghost btn-sm"
+                        style={{ color: 'var(--red)' }}
+                        onClick={() => adjustTeamScore(t.id, -25)}
+                      >
                         -25
                       </button>
                     </td>
