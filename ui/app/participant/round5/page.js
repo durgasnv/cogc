@@ -4,11 +4,9 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
-  cDebugQuestions,
   getCDebugSet,
   getSuitcaseLockSet,
   ROUND5_TIME_LIMIT_SECONDS,
-  SUITCASE_LOCK_CONFIG,
 } from '@/lib/round5Data';
 import { getRandomCongratsImage, getRandomSorryImage } from '@/lib/memes';
 import AntiCheatShield from '@/components/AntiCheatShield';
@@ -30,6 +28,22 @@ export default function Round5PlayPage() {
   const [timeLeft, setTimeLeft] = useState(ROUND5_TIME_LIMIT_SECONDS);
   const timerRef = useRef(null);
   const [activeMeme, setActiveMeme] = useState('');
+
+  // Randomize / assign set based on logged in team
+  useEffect(() => {
+    fetch('/api/team/me')
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.team?.id) {
+          let hash = 0;
+          for (let i = 0; i < d.team.id.length; i++) hash = (hash * 31 + d.team.id.charCodeAt(i)) % 4;
+          setSelectedSet(Math.abs(hash) + 1);
+        } else {
+          setSelectedSet(Math.floor(Math.random() * 4) + 1);
+        }
+      })
+      .catch(() => setSelectedSet(Math.floor(Math.random() * 4) + 1));
+  }, []);
 
   // 15-minute countdown timer
   useEffect(() => {
@@ -113,23 +127,10 @@ export default function Round5PlayPage() {
             Inspect the buggy code, identify the logic flaw, calculate the correct output, and unlock the final <strong>9-Digit Suitcase Lock</strong>!
           </p>
 
-          <div style={{ marginBottom: 24, textAlign: 'left', background: 'rgba(24, 24, 24, 0.9)', padding: 18, borderRadius: 10, border: '1px solid #333' }}>
-            <label style={{ display: 'block', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--gold)', fontWeight: 700, letterSpacing: '0.05em', marginBottom: 10 }}>
-              SELECT ASSIGNED PROBLEM SET:
-            </label>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
-              {[1, 2, 3, 4].map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  className={`btn ${selectedSet === s ? 'btn-primary' : 'btn-ghost'}`}
-                  style={{ fontFamily: 'var(--font-display)', fontSize: 18, letterSpacing: '0.04em' }}
-                  onClick={() => setSelectedSet(s)}
-                >
-                  SET {s}
-                </button>
-              ))}
-            </div>
+          <div style={{ marginBottom: 24, textAlign: 'center', background: 'rgba(24, 24, 24, 0.9)', padding: 14, borderRadius: 10, border: '1px solid #333' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--gold)', fontWeight: 700, letterSpacing: '0.05em' }}>
+              🎲 CHALLENGE SET: Dynamic Randomized Assignment
+            </span>
           </div>
 
           <button
@@ -277,23 +278,12 @@ export default function Round5PlayPage() {
 
             {/* Right: Test Cases & Solution Input */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              {/* Test Case & Expected Output */}
+              {/* Challenge Objective */}
               <div className="card" style={{ padding: 18, background: '#141414', border: '1px solid #2a2a2a' }}>
-                <p className="eyebrow mb-8" style={{ color: 'var(--gold)' }}>TEST CASE &amp; BEHAVIOR</p>
-                {currentQ.input && (
-                  <div className="mb-12">
-                    <span className="muted small" style={{ display: 'block', marginBottom: 4 }}>Standard Input:</span>
-                    <div style={{ background: '#0a0a0a', padding: '6px 10px', borderRadius: 4, fontFamily: 'var(--font-mono)', fontSize: 12 }}>
-                      {currentQ.input}
-                    </div>
-                  </div>
-                )}
-                <div>
-                  <span className="muted small" style={{ display: 'block', marginBottom: 4 }}>Expected Correct Output:</span>
-                  <div style={{ background: '#0a0a0a', padding: '6px 10px', borderRadius: 4, fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--green)', fontWeight: 'bold' }}>
-                    {currentQ.expectedOutput}
-                  </div>
-                </div>
+                <p className="eyebrow mb-8" style={{ color: 'var(--gold)' }}>DEBUGGING OBJECTIVE</p>
+                <p className="muted" style={{ fontSize: 13, lineHeight: 1.5, margin: 0 }}>
+                  Trace the execution of this C program. Identify the exact line containing the logical bug, explain the root cause, and determine the output produced by the buggy code.
+                </p>
               </div>
 
               {/* Your Analysis & Fix */}

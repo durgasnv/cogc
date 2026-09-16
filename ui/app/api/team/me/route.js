@@ -44,17 +44,6 @@ export async function GET(req) {
     eliminatedInRound = 5;
   }
 
-  const isTestTeam =
-    process.env.NODE_ENV !== 'production' ||
-    session.name === 'Dev Tester' ||
-    session.id === 'dev-tester' ||
-    session.name?.toLowerCase().includes('tester') ||
-    session.name?.toLowerCase().includes('test');
-  if (isTestTeam) {
-    isEliminated = false;
-    eliminatedInRound = null;
-  }
-
   return NextResponse.json({
     team: { id: session.id, name: session.name },
     phases,
@@ -70,6 +59,5 @@ export async function GET(req) {
     },
     isEliminated,
     eliminatedInRound,
-    isTestTeam,
   });
 }

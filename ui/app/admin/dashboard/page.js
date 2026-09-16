@@ -618,40 +618,14 @@ function Round5Tab({ teams }) {
   const [thresholdInput, setThresholdInput] = useState('');
   const [settingsBusy, setSettingsBusy] = useState(false);
   const [error, setError] = useState('');
-  const [suitcaseInput, setSuitcaseInput] = useState('');
-  const [suitcaseMsg, setSuitcaseMsg] = useState('');
 
   const loadBoard = useCallback(async () => {
     try {
       const res = await api('/api/admin/round5/leaderboard');
       setData(res);
       setThresholdInput(res.threshold === null ? '' : String(res.threshold));
-
-      // Also load current suitcase code
-      const scRes = await api('/api/admin/suitcase');
-      if (scRes?.code) setSuitcaseInput(scRes.code);
     } catch (e) { setError(e.message); }
   }, []);
-
-  async function saveSuitcaseCode() {
-    if (suitcaseInput.length !== 9) {
-      alert('Combination must be exactly 9 digits.');
-      return;
-    }
-    setSettingsBusy(true);
-    setSuitcaseMsg('');
-    try {
-      const res = await api('/api/admin/suitcase', {
-        method: 'POST',
-        body: JSON.stringify({ code: suitcaseInput }),
-      });
-      setSuitcaseMsg(`✅ Combination saved: ${res.code}`);
-      setTimeout(() => setSuitcaseMsg(''), 4000);
-    } catch (e) {
-      alert(`Failed to save: ${e.message}`);
-    }
-    setSettingsBusy(false);
-  }
 
   useEffect(() => {
     loadBoard();
@@ -703,29 +677,29 @@ function Round5Tab({ teams }) {
 
   return (
     <div>
-      {/* 9-Digit Suitcase Lock Configuration */}
+      {/* 9-Digit Suitcase Lock Combinations Reference */}
       <div className="card mb-24" style={{ border: '2px solid var(--gold)', boxShadow: '0 0 25px rgba(255,187,0,0.15)' }}>
-        <p className="eyebrow mb-12" style={{ color: 'var(--gold)' }}>🔒 Grand Finale Suitcase Combination Setting</p>
-        <p className="muted small mb-16" style={{ maxWidth: 680 }}>
-          Set the secret 9-digit combination derived from the 3 C debugging problems. When finalist teams input this code on their screens, the server will verify and trigger the grand unlock!
+        <p className="eyebrow mb-8" style={{ color: 'var(--gold)' }}>🔒 Grand Finale Suitcase Combinations Reference</p>
+        <p className="muted small mb-16" style={{ maxWidth: 780, lineHeight: 1.5 }}>
+          Finalist teams receive a randomized set of 3 C code debugging challenges. Each challenge outputs a 3-digit number to form a 9-digit suitcase master key. Combination verification runs automatically on the server against valid set codes:
         </p>
-        <div className="row" style={{ gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-          <input
-            type="text"
-            maxLength={9}
-            placeholder="9 digits (e.g. 742189035)"
-            value={suitcaseInput}
-            onChange={(e) => setSuitcaseInput(e.target.value.replace(/\D/g, ''))}
-            style={{ width: 240, fontSize: 18, fontFamily: 'monospace', fontWeight: 'bold', letterSpacing: 3, textAlign: 'center' }}
-          />
-          <button
-            className="btn btn-primary"
-            onClick={saveSuitcaseCode}
-            disabled={settingsBusy || suitcaseInput.length !== 9}
-          >
-            Save 9-Digit Combination
-          </button>
-          {suitcaseMsg && <span className="mono small" style={{ color: 'var(--green)', fontWeight: 'bold' }}>{suitcaseMsg}</span>}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12 }}>
+          {[
+            { set: 1, key: '482-719-365' },
+            { set: 2, key: '474-838-529' },
+            { set: 3, key: '533-614-379' },
+            { set: 4, key: '626-811-399' },
+          ].map((item) => (
+            <div key={item.set} style={{ background: '#111', padding: '12px 14px', borderRadius: 8, border: '1px solid #2a2a2a' }}>
+              <div className="row-between mb-4">
+                <span style={{ color: 'var(--gold)', fontWeight: 'bold', fontSize: 13, fontFamily: 'var(--font-mono)' }}>SET {item.set}</span>
+                <span className="chip green" style={{ fontSize: 10, padding: '2px 6px' }}>AUTO-VERIFIED</span>
+              </div>
+              <div style={{ fontFamily: 'monospace', fontSize: 18, fontWeight: 'bold', letterSpacing: 2, color: '#fff' }}>
+                {item.key}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

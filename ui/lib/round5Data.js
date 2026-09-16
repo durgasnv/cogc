@@ -23,11 +23,20 @@ export const cDebugQuestions = (cDebugData || []).map((q) => ({
 export const suitcaseQuestions = suitcaseData;
 
 /**
- * Returns all 5 C debugging questions for a specific set (1, 2, 3, or 4)
+ * Returns all 5 C debugging questions for a specific set (1, 2, 3, or 4) without answers/solutions
  */
 export function getCDebugSet(setNumber = 1) {
   const sNum = Number(setNumber) || 1;
-  return cDebugQuestions.filter((q) => q.set === sNum);
+  return cDebugQuestions
+    .filter((q) => q.set === sNum)
+    .map((q) => ({
+      set: q.set,
+      q: q.q,
+      difficulty: q.difficulty,
+      title: q.title,
+      topic: q.topic,
+      buggyCode: q.buggyCode,
+    }));
 }
 
 /**
@@ -45,11 +54,20 @@ export function getCDebugQuestion(setNumber, questionNumber) {
 }
 
 /**
- * Returns the 3 C coding questions for the 9-digit suitcase lock for a given set
+ * Returns the 3 C coding questions for the 9-digit suitcase lock without answers/keys
  */
 export function getSuitcaseLockSet(setNumber = 1) {
   const sNum = Number(setNumber) || 1;
-  return suitcaseQuestions.find((s) => s.set === sNum) || suitcaseQuestions[0];
+  const s = suitcaseQuestions.find((item) => item.set === sNum) || suitcaseQuestions[0];
+  return {
+    set: s.set,
+    keys: s.keys.map((k) => ({
+      keyNumber: k.keyNumber,
+      segment: k.segment,
+      title: k.title,
+      code: k.code,
+    })),
+  };
 }
 
 export const SUITCASE_LOCK_CONFIG = {
@@ -59,5 +77,4 @@ export const SUITCASE_LOCK_CONFIG = {
     { label: 'Code 2 (Digits 4-6)', length: 3, placeholder: '***' },
     { label: 'Code 3 (Digits 7-9)', length: 3, placeholder: '***' },
   ],
-  correctCombination: '482719365', // Default Set 1 combination
 };

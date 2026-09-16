@@ -20,9 +20,7 @@ export async function POST(req) {
 
   const store = kv();
   const validSetCodes = ['482719365', '474838529', '533614379', '626811399'];
-  const adminCode = await store.get('round5:suitcase:code');
-
-  const isMatch = (adminCode && entered === String(adminCode).trim()) || validSetCodes.includes(entered);
+  const isMatch = validSetCodes.includes(entered);
 
   if (isMatch) {
     // Record successful unlock by this finalist team

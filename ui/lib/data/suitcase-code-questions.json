@@ -6,26 +6,26 @@
       {
         "keyNumber": 1,
         "segment": "Digits 1-3",
-        "title": "Key 1: Arithmetic & Operator Precedence",
+        "title": "Key 1: Pointer Arithmetic & Weighted Traversal",
         "digits": "482",
-        "code": "#include <stdio.h>\n\nint main() {\n    int a = 12;\n    int b = 35;\n    int c = 5;\n    int code1 = (a * b) + (c * 12) + 2;\n    printf(\"%d\\n\", code1);\n    return 0;\n}",
-        "explanation": "(12 * 35) = 420; (5 * 12) = 60; 420 + 60 + 2 = 482"
+        "code": "#include <stdio.h>\n\nint main() {\n    int arr[] = {25, 40, 15, 30, 12};\n    int *p = arr;\n    int total = 0;\n    for (int i = 0; i < 5; i++) {\n        total += *(p + i) * (i + 1);\n    }\n    int key = total + (8 << 4) + 24;\n    printf(\"%d\\n\", key);\n    return 0;\n}",
+        "explanation": "Weighted sum of array elements gives 330. Adding (8 << 4 = 128) and 24 yields 482."
       },
       {
         "keyNumber": 2,
         "segment": "Digits 4-6",
-        "title": "Key 2: Array Accumulation",
+        "title": "Key 2: Matrix Diagonal & Non-Diagonal Accumulator",
         "digits": "719",
-        "code": "#include <stdio.h>\n\nint main() {\n    int sum = 0;\n    int arr[] = {150, 220, 180, 169};\n    for (int i = 0; i < 4; i++) {\n        sum += arr[i];\n    }\n    printf(\"%d\\n\", sum);\n    return 0;\n}",
-        "explanation": "150 + 220 + 180 + 169 = 719"
+        "code": "#include <stdio.h>\n\nint main() {\n    int sum = 200;\n    int matrix[3][3] = {\n        {15, 32, 45},\n        {28, 60, 14},\n        {50, 22, 35}\n    };\n    for (int r = 0; r < 3; r++) {\n        for (int c = 0; c < 3; c++) {\n            if (r == c) sum += matrix[r][c] * 2;\n            else sum += matrix[r][c];\n        }\n    }\n    printf(\"%d\\n\", sum + 108);\n    return 0;\n}",
+        "explanation": "Diagonal elements multiplied by 2 plus non-diagonal elements gives 411. 200 + 411 + 108 = 719."
       },
       {
         "keyNumber": 3,
         "segment": "Digits 7-9",
-        "title": "Key 3: Bitwise Shift Arithmetic",
+        "title": "Key 3: Bitwise XOR & Shifted Masking",
         "digits": "365",
-        "code": "#include <stdio.h>\n\nint main() {\n    int x = 8;\n    int y = (x << 5) + (x << 3) + 45;\n    printf(\"%d\\n\", y);\n    return 0;\n}",
-        "explanation": "(8 << 5) = 256; (8 << 3) = 64; 256 + 64 + 45 = 365"
+        "code": "#include <stdio.h>\n\nint main() {\n    int x = 15;\n    int count = 0;\n    for (int i = 1; i <= 6; i++) {\n        if (i % 2 == 0) {\n            count += (x ^ (i << 2));\n        } else {\n            count += (x & ~(i));\n        }\n    }\n    printf(\"%d\\n\", count + 268);\n    return 0;\n}",
+        "explanation": "Evaluating alternating bitwise XOR with shifts and bitwise AND with negation yields 97. 97 + 268 = 365."
       }
     ]
   },
@@ -36,26 +36,26 @@
       {
         "keyNumber": 1,
         "segment": "Digits 1-3",
-        "title": "Key 1: Multiplication & Offset",
+        "title": "Key 1: Array Traversal with Conditional Branching",
         "digits": "474",
-        "code": "#include <stdio.h>\n\nint main() {\n    int x = 14;\n    int y = 25;\n    int result = (x * y) + 124;\n    printf(\"%d\\n\", result);\n    return 0;\n}",
-        "explanation": "(14 * 25) = 350; 350 + 124 = 474"
+        "code": "#include <stdio.h>\n\nint main() {\n    int arr[] = {18, 42, 29, 65, 36};\n    int result = 47;\n    for (int i = 0; i < 5; i++) {\n        result += (arr[i] > 30) ? (arr[i] * 2) : (arr[i] * 3);\n    }\n    printf(\"%d\\n\", result);\n    return 0;\n}",
+        "explanation": "Conditional weighting based on threshold: 47 + 54 + 84 + 87 + 130 + 72 = 474."
       },
       {
         "keyNumber": 2,
         "segment": "Digits 4-6",
-        "title": "Key 2: Array Summation",
+        "title": "Key 2: Nested Loop with Iteration Skips",
         "digits": "838",
-        "code": "#include <stdio.h>\n\nint main() {\n    int nums[] = {105, 215, 310, 208};\n    int total = 0;\n    for (int i = 0; i < 4; i++) {\n        total += nums[i];\n    }\n    printf(\"%d\\n\", total);\n    return 0;\n}",
-        "explanation": "105 + 215 + 310 + 208 = 838"
+        "code": "#include <stdio.h>\n\nint main() {\n    int total = 54;\n    for (int i = 1; i <= 4; i++) {\n        for (int j = 1; j <= 5; j++) {\n            if (j == 3) continue;\n            total += (i * 10) + (j * 8);\n        }\n    }\n    printf(\"%d\\n\", total);\n    return 0;\n}",
+        "explanation": "Iterating with inner loop skip at j=3 accumulates 784. 54 + 784 = 838."
       },
       {
         "keyNumber": 3,
         "segment": "Digits 7-9",
-        "title": "Key 3: Bitwise Left Shift",
+        "title": "Key 3: Bitwise Shift & Masking Combination",
         "digits": "529",
-        "code": "#include <stdio.h>\n\nint main() {\n    int a = 6;\n    int result = (a << 6) + 145;\n    printf(\"%d\\n\", result);\n    return 0;\n}",
-        "explanation": "(6 << 6) = 6 * 64 = 384; 384 + 145 = 529"
+        "code": "#include <stdio.h>\n\nint main() {\n    int mask = 0x1F;\n    int a = 7;\n    int code = (a << 6);\n    int extra = (a ^ mask) + 57;\n    printf(\"%d\\n\", code + extra);\n    return 0;\n}",
+        "explanation": "(7 << 6) = 448. (7 ^ 31) = 24. 448 + 24 + 57 = 529."
       }
     ]
   },
@@ -66,26 +66,26 @@
       {
         "keyNumber": 1,
         "segment": "Digits 1-3",
-        "title": "Key 1: Compound Expression",
+        "title": "Key 1: Modulo Offset & Weighted Series",
         "digits": "533",
-        "code": "#include <stdio.h>\n\nint main() {\n    int m = 18, n = 20, p = 15;\n    int val = (m * n) + (p * 10) + 23;\n    printf(\"%d\\n\", val);\n    return 0;\n}",
-        "explanation": "(18 * 20) = 360; (15 * 10) = 150; 360 + 150 + 23 = 533"
+        "code": "#include <stdio.h>\n\nint main() {\n    int weights[] = {14, 22, 17, 31, 28};\n    int total = 60;\n    for (int i = 0; i < 5; i++) {\n        total += (weights[i] * (i + 2)) - (weights[i] % 5);\n    }\n    printf(\"%d\\n\", total);\n    return 0;\n}",
+        "explanation": "Series evaluation with modulo deductions yields 473. 60 + 473 = 533."
       },
       {
         "keyNumber": 2,
         "segment": "Digits 4-6",
-        "title": "Key 2: Subtraction & Grouping",
+        "title": "Key 2: 2D Matrix Partitioning & Directional Sum",
         "digits": "614",
-        "code": "#include <stdio.h>\n\nint main() {\n    int base = 1000;\n    int sub = (75 * 4) + 86;\n    printf(\"%d\\n\", base - sub);\n    return 0;\n}",
-        "explanation": "(75 * 4) = 300; 300 + 86 = 386; 1000 - 386 = 614"
+        "code": "#include <stdio.h>\n\nint main() {\n    int grid[3][3] = {\n        {30, 45, 60},\n        {25, 80, 50},\n        {70, 40, 90}\n    };\n    int val = 234;\n    for (int r = 0; r < 3; r++) {\n        for (int c = 0; c < 3; c++) {\n            if (r == c) val += grid[r][c] * 2;\n            else if (r < c) val -= grid[r][c];\n            else val += grid[r][c];\n        }\n    }\n    printf(\"%d\\n\", val);\n    return 0;\n}",
+        "explanation": "Diagonal doubling with upper-triangle deduction and lower-triangle addition gives 380. 234 + 380 = 614."
       },
       {
         "keyNumber": 3,
         "segment": "Digits 7-9",
-        "title": "Key 3: Dual Bit Shift",
+        "title": "Key 3: Bitwise Shift & Low-Nibble Mask",
         "digits": "379",
-        "code": "#include <stdio.h>\n\nint main() {\n    int k = 9;\n    int out = (k << 5) + (4 << 4) + 27;\n    printf(\"%d\\n\", out);\n    return 0;\n}",
-        "explanation": "(9 << 5) = 288; (4 << 4) = 64; 288 + 64 + 27 = 379"
+        "code": "#include <stdio.h>\n\nint main() {\n    int b = 11;\n    int shifted = (b << 5);\n    int maskCalc = ((b & 0x07) * 4) + 15;\n    printf(\"%d\\n\", shifted + maskCalc);\n    return 0;\n}",
+        "explanation": "(11 << 5) = 352. (11 & 7) = 3; (3 * 4) + 15 = 27. 352 + 27 = 379."
       }
     ]
   },
@@ -96,26 +96,26 @@
       {
         "keyNumber": 1,
         "segment": "Digits 1-3",
-        "title": "Key 1: Multiplication & Deduction",
+        "title": "Key 1: Alternating Parity Accumulator",
         "digits": "626",
-        "code": "#include <stdio.h>\n\nint main() {\n    int p = 25, q = 30;\n    int res = (p * q) - (8 * 15) - 4;\n    printf(\"%d\\n\", res);\n    return 0;\n}",
-        "explanation": "(25 * 30) = 750; (8 * 15) = 120; 750 - 120 - 4 = 626"
+        "code": "#include <stdio.h>\n\nint main() {\n    int nums[] = {45, 12, 80, 25, 60, 35};\n    int total = 328;\n    for (int i = 0; i < 6; i++) {\n        if (i % 2 == 0) total += nums[i] * 2;\n        else total -= nums[i];\n    }\n    printf(\"%d\\n\", total);\n    return 0;\n}",
+        "explanation": "Alternating double addition on even indices and subtraction on odd indices yields 298. 328 + 298 = 626."
       },
       {
         "keyNumber": 2,
         "segment": "Digits 4-6",
-        "title": "Key 2: Square & Factor",
+        "title": "Key 2: Dual Loop Divisibility Accumulator",
         "digits": "811",
-        "code": "#include <stdio.h>\n\nint main() {\n    int base = 11 * 11;\n    int finalVal = (base * 6) + 85;\n    printf(\"%d\\n\", finalVal);\n    return 0;\n}",
-        "explanation": "11 * 11 = 121; 121 * 6 = 726; 726 + 85 = 811"
+        "code": "#include <stdio.h>\n\nint main() {\n    int total = 397;\n    for (int i = 1; i <= 5; i++) {\n        for (int j = 1; j <= 3; j++) {\n            if ((i * j) % 3 == 0) total += (i * j * 5);\n            else total += (i + j) * 4;\n        }\n    }\n    printf(\"%d\\n\", total);\n    return 0;\n}",
+        "explanation": "Divisible products multiplied by 5 combined with sum terms accumulates 414. 397 + 414 = 811."
       },
       {
         "keyNumber": 3,
         "segment": "Digits 7-9",
-        "title": "Key 3: Shift & Subtraction",
+        "title": "Key 3: Bitwise Shift & Inverted Masking",
         "digits": "399",
-        "code": "#include <stdio.h>\n\nint main() {\n    int z = 7;\n    int calc = (z << 6) - (5 * 10) + 1;\n    printf(\"%d\\n\", calc);\n    return 0;\n}",
-        "explanation": "(7 << 6) = 7 * 64 = 448; (5 * 10) = 50; 448 - 50 + 1 = 399"
+        "code": "#include <stdio.h>\n\nint main() {\n    int v = 12;\n    int part1 = (v << 5);\n    int part2 = (v ^ 0x0F) * 5;\n    printf(\"%d\\n\", part1 + part2);\n    return 0;\n}",
+        "explanation": "(12 << 5) = 384. (12 ^ 15) = 3; 3 * 5 = 15. 384 + 15 = 399."
       }
     ]
   }
