@@ -40,6 +40,12 @@ export default function AdminDashboard() {
     }
   }, [router]);
 
+  useEffect(() => {
+    loadTeams();
+    const id = setInterval(loadTeams, 5000);
+    return () => clearInterval(id);
+  }, [loadTeams]);
+
   async function handlePurgeTestData() {
     const confirmation = prompt('⚠️ DANGER: Type "RESET" to purge all test scores across all rounds.\n\n(Registered team names will remain safe):');
     if (confirmation !== 'RESET') {
@@ -978,6 +984,7 @@ function Round4Tab({ teams }) {
   const [buzzerOpen, setBuzzerOpen] = useState(false);
   const [firstBuzz, setFirstBuzz] = useState(null);
   const [busy, setBusy] = useState(false);
+  const [teamFilter, setTeamFilter] = useState('');
 
   // Poll live round 4 state every 1.2 seconds
   const loadState = useCallback(async () => {
@@ -1314,7 +1321,16 @@ function Round4Tab({ teams }) {
         {/* Live Stage Score Tracker */}
         <div className="card">
           <div className="row-between mb-12">
-            <p className="eyebrow mb-0">Round 4 Stage Point Tally</p>
+            <div>
+              <p className="eyebrow mb-0">Round 4 Stage Point Tally</p>
+              <input
+                type="text"
+                value={teamFilter}
+                onChange={(e) => setTeamFilter(e.target.value)}
+                placeholder="Search team to award points..."
+                style={{ marginTop: 6, padding: '4px 10px', fontSize: 13, width: 220, borderRadius: 6 }}
+              />
+            </div>
             <button className="btn btn-ghost btn-sm" onClick={resetAllRound4Scores} style={{ fontSize: 11 }}>
               Reset Scores
             </button>
@@ -1329,32 +1345,34 @@ function Round4Tab({ teams }) {
                 </tr>
               </thead>
               <tbody>
-                {teams.slice(0, 16).map((t) => (
-                  <tr key={t.id}>
-                    <td>
-                      <strong>{t.name}</strong>
-                    </td>
-                    <td className="mono" style={{ fontSize: 18, color: 'var(--gold)', fontWeight: 'bold' }}>
-                      {scores[t.id] || 0} pts
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-ghost btn-sm"
-                        style={{ marginRight: 6, color: 'var(--green)' }}
-                        onClick={() => adjustTeamScore(t.id, 100)}
-                      >
-                        +100
-                      </button>
-                      <button
-                        className="btn btn-ghost btn-sm"
-                        style={{ color: 'var(--red)' }}
-                        onClick={() => adjustTeamScore(t.id, -25)}
-                      >
-                        -25
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                {teams
+                  .filter((t) => !teamFilter.trim() || t.name.toLowerCase().includes(teamFilter.toLowerCase()))
+                  .map((t) => (
+                    <tr key={t.id}>
+                      <td>
+                        <strong>{t.name}</strong>
+                      </td>
+                      <td className="mono" style={{ fontSize: 18, color: 'var(--gold)', fontWeight: 'bold' }}>
+                        {scores[t.id] || 0} pts
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-ghost btn-sm"
+                          style={{ marginRight: 6, color: 'var(--green)' }}
+                          onClick={() => adjustTeamScore(t.id, 100)}
+                        >
+                          +100
+                        </button>
+                        <button
+                          className="btn btn-ghost btn-sm"
+                          style={{ color: 'var(--red)' }}
+                          onClick={() => adjustTeamScore(t.id, -25)}
+                        >
+                          -25
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

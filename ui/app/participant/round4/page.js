@@ -127,6 +127,18 @@ export default function Round4ParticipantPage() {
     }
   }
 
+  // Spacebar keyboard shortcut for laptop users
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.code === 'Space' && gameState?.buzzerOpen && !buzzing) {
+        e.preventDefault();
+        handleBuzz();
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [gameState?.buzzerOpen, buzzing]);
+
   const isBuzzerOpen = !!gameState?.buzzerOpen;
   const firstBuzz = gameState?.firstBuzz;
   const isMyTeamWinner = team && firstBuzz && firstBuzz.teamId === team.id;
@@ -294,6 +306,10 @@ export default function Round4ParticipantPage() {
               {isMyTeamWinner ? 'WINNER!' : isBuzzerOpen ? 'BUZZ!' : 'LOCKED'}
             </span>
           </button>
+
+          <p className="hint-text mt-16" style={{ fontSize: 13, color: isBuzzerOpen ? 'var(--gold)' : 'var(--muted)', fontWeight: isBuzzerOpen ? 600 : 400 }}>
+            {isBuzzerOpen ? '⌨️ Press [SPACEBAR] or click button to buzz in!' : '⌨️ Spacebar shortcut activates when host opens buzzer'}
+          </p>
 
           {/* Local Feedback */}
           {buzzResult && !buzzResult.first && (

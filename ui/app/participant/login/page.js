@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
+import registeredTeams from '@/lib/data/registered-teams.json';
+
 export default function ParticipantLoginPage() {
   const router = useRouter();
   const [name, setName] = useState('');
@@ -36,7 +38,7 @@ export default function ParticipantLoginPage() {
 
   return (
     <div className="center-screen">
-      <div className="card card-lg" style={{ width: 420 }}>
+      <div className="card card-lg" style={{ width: 440 }}>
         <p className="eyebrow mb-8">Engineers&rsquo; Day // Live Technical Fire Round</p>
         <h1 style={{ fontSize: 40, marginBottom: 24 }}>
           Team <span style={{ color: 'var(--red)' }}>login</span>
@@ -46,13 +48,23 @@ export default function ParticipantLoginPage() {
             <label htmlFor="name">Team name</label>
             <input
               id="name"
+              list="registered-teams-list"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Null Pointers"
+              placeholder="Start typing your team name..."
               autoFocus
               required
+              autoComplete="off"
             />
+            <datalist id="registered-teams-list">
+              {registeredTeams.map((t) => (
+                <option key={t} value={t} />
+              ))}
+            </datalist>
+            <p className="hint-text" style={{ fontSize: 11, marginTop: 4, color: 'var(--muted)' }}>
+              💡 Start typing to pick your registered name from the list.
+            </p>
           </div>
           <div className="field">
             <label htmlFor="pin">Participant Password</label>
