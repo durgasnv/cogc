@@ -144,7 +144,7 @@ export default function Round4ParticipantPage() {
                 ROUND 4 &middot; LIVE STAGE BUZZER
               </span>
               <span className="chip" style={{ color: 'var(--gold)', borderColor: 'var(--gold)', background: 'rgba(255,187,0,0.08)' }}>
-                🎬 TELUGU MOVIES &amp; TECH
+                🎬 TELUGU MOVIES &amp; TRENDS
               </span>
             </div>
             <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 34, margin: '6px 0 0', letterSpacing: '0.02em' }}>
@@ -167,7 +167,7 @@ export default function Round4ParticipantPage() {
         <div className="card mb-20 text-center" style={{ padding: '12px 18px', background: '#111', border: '1px solid #252525' }}>
           <span className="muted small mono" style={{ marginRight: 8 }}>ACTIVE CATEGORY:</span>
           <span style={{ color: 'var(--gold)', fontWeight: 'bold', fontSize: 16, fontFamily: 'var(--font-mono)' }}>
-            {gameState?.activeCategory || 'Telugu Movies & Tech Actions'}
+            {gameState?.activeCategory || 'Telugu Movies & Tech Trends'}
           </span>
         </div>
 
