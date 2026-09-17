@@ -26,12 +26,14 @@ export default function AdminDashboard() {
   const router = useRouter();
   const [tab, setTab] = useState('teams');
   const [teams, setTeams] = useState([]);
+  const [loggedInCount, setLoggedInCount] = useState(0);
   const [loadError, setLoadError] = useState('');
 
   const loadTeams = useCallback(async () => {
     try {
       const data = await api('/api/admin/teams');
       setTeams(data.teams || []);
+      setLoggedInCount(data.loggedInCount ?? (data.teams || []).filter((t) => t.isLoggedIn).length);
     } catch (e) {
       if (e.message === '__UNAUTH__') { router.push('/admin/login'); return; }
       setLoadError(e.message);
@@ -90,7 +92,9 @@ export default function AdminDashboard() {
           >
             ⚠️ Reset Test Data
           </button>
-          <span className="chip">{teams.length} Teams Registered</span>
+          <span className={`chip ${loggedInCount > 0 ? 'green' : ''}`}>
+            🟢 {loggedInCount} / {teams.length} Teams Logged In
+          </span>
         </div>
       </nav>
 
@@ -189,12 +193,19 @@ function TeamsTab({ teams, onChange }) {
         ) : (
           <table className="data-table">
             <thead>
-              <tr><th>Team Name</th><th>Login PIN</th><th>Team ID</th><th>Action</th></tr>
+              <tr><th>Team Name</th><th>Live Attendance</th><th>Password</th><th>Team ID</th><th>Action</th></tr>
             </thead>
             <tbody>
               {teams.map((t) => (
                 <tr key={t.id}>
                   <td><strong>{t.name}</strong></td>
+                  <td>
+                    {t.isLoggedIn ? (
+                      <span className="chip green" style={{ fontSize: 11, padding: '2px 8px' }}>🟢 Signed In</span>
+                    ) : (
+                      <span className="chip" style={{ fontSize: 11, padding: '2px 8px' }}>⚪ Pending</span>
+                    )}
+                  </td>
                   <td><span className="pin-badge">{t.pin}</span></td>
                   <td className="mono muted small">{t.id}</td>
                   <td>
@@ -254,6 +265,12 @@ function Round2Tab({ teams }) {
     const all = {};
     teams.forEach((t) => { all[t.id] = true; });
     setSelected(all);
+  }
+
+  function selectPresentOnly() {
+    const present = {};
+    teams.forEach((t) => { if (t.isLoggedIn) present[t.id] = true; });
+    setSelected(present);
   }
 
   const selectedIds = Object.keys(selected).filter((id) => selected[id]);
@@ -317,16 +334,24 @@ function Round2Tab({ teams }) {
       <div className="card mb-24">
         <div className="row-between mb-16">
           <p className="eyebrow">Round 2 &middot; Randomize &amp; Assign Balanced Sets</p>
-          <div className="row" style={{ gap: 8 }}>
+          <div className="row" style={{ gap: 8, flexWrap: 'wrap' }}>
             <button className="btn btn-ghost btn-sm" onClick={selectAll}>Select All</button>
+            <button
+              className="btn btn-ghost btn-sm"
+              onClick={selectPresentOnly}
+              style={{ borderColor: 'var(--green)', color: 'var(--green)', fontWeight: 700 }}
+            >
+              ⚡ Select Present Only ({teams.filter((t) => t.isLoggedIn).length})
+            </button>
+            <button className="btn btn-ghost btn-sm" onClick={() => setSelected({})}>Clear</button>
             <span className="muted small">{selectedIds.length} / {teams.length} Selected</span>
           </div>
         </div>
         <div className="checkbox-grid mb-16">
           {teams.map((t) => (
-            <label key={t.id} className="checkbox-row">
+            <label key={t.id} className="checkbox-row" style={{ color: t.isLoggedIn ? 'var(--white)' : '#777' }}>
               <input type="checkbox" checked={!!selected[t.id]} onChange={() => toggle(t.id)} />
-              {t.name}
+              {t.name} {t.isLoggedIn && <span style={{ color: 'var(--green)', fontSize: 11, marginLeft: 4 }}>●</span>}
             </label>
           ))}
         </div>
@@ -357,10 +382,60 @@ function Round2Tab({ teams }) {
           </button>
           {board && (
             <span className={`chip ${board.revealed ? 'green' : ''}`}>
-              {board.revealed ? '📢 Results Visible to Teams' : '🔒 Results Hidden'}
+              {board.revealed ? '📢 Results Visible' : '🔒 Results Hidden'}
             </span>
           )}
         </div>
+
+        {/* Dynamic Live Cutoff Suggestions */}
+        {(() => {
+          const sub = rankedRows.filter((r) => r.score !== null);
+          if (!sub.length) return null;
+          const topHalfCount = Math.ceil(sub.length / 2);
+          const topHalfScore = sub[topHalfCount - 1]?.score;
+          return (
+            <div style={{ marginTop: 14, paddingTop: 12, borderTop: '1px solid #222', display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+              <span className="muted small mono" style={{ marginRight: 4 }}>
+                ⚡ LIVE CUTOFF SHORTCUTS ({sub.length} Submitted):
+              </span>
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm"
+                style={{ borderColor: 'var(--gold)', color: 'var(--gold)' }}
+                onClick={() => setThresholdInput(String(topHalfScore))}
+              >
+                🏆 Top 50% (Top {topHalfCount} &middot; &ge; {topHalfScore} pts)
+              </button>
+              {sub.length >= 16 && (
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                  onClick={() => setThresholdInput(String(sub[15]?.score))}
+                >
+                  Top 16 (&ge; {sub[15]?.score} pts)
+                </button>
+              )}
+              {sub.length >= 12 && (
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                  onClick={() => setThresholdInput(String(sub[11]?.score))}
+                >
+                  Top 12 (&ge; {sub[11]?.score} pts)
+                </button>
+              )}
+              {sub.length >= 8 && (
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                  onClick={() => setThresholdInput(String(sub[7]?.score))}
+                >
+                  Top 8 (&ge; {sub[7]?.score} pts)
+                </button>
+              )}
+            </div>
+          );
+        })()}
       </div>
 
       {/* Round 2 Statistics Banner */}
@@ -533,6 +608,47 @@ function Round3Tab({ teams }) {
             </span>
           )}
         </div>
+
+        {/* Dynamic Live Cutoff Suggestions */}
+        {(() => {
+          const sub = rows.filter((r) => r.score !== null);
+          if (!sub.length) return null;
+          const topHalfCount = Math.ceil(sub.length / 2);
+          const topHalfScore = sub[topHalfCount - 1]?.score;
+          return (
+            <div style={{ marginTop: 14, paddingTop: 12, borderTop: '1px solid #222', display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+              <span className="muted small mono" style={{ marginRight: 4 }}>
+                ⚡ LIVE CUTOFF SHORTCUTS ({sub.length} Submitted):
+              </span>
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm"
+                style={{ borderColor: 'var(--gold)', color: 'var(--gold)' }}
+                onClick={() => setThresholdInput(String(topHalfScore))}
+              >
+                🏆 Top 50% (Top {topHalfCount} &middot; &ge; {topHalfScore} pts)
+              </button>
+              {sub.length >= 8 && (
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                  onClick={() => setThresholdInput(String(sub[7]?.score))}
+                >
+                  Top 8 (&ge; {sub[7]?.score} pts)
+                </button>
+              )}
+              {sub.length >= 4 && (
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                  onClick={() => setThresholdInput(String(sub[3]?.score))}
+                >
+                  Top 4 Finalists (&ge; {sub[3]?.score} pts)
+                </button>
+              )}
+            </div>
+          );
+        })()}
         {error && <p className="error-text mt-8">{error}</p>}
       </div>
 
@@ -732,6 +848,45 @@ function Round5Tab({ teams }) {
             </span>
           )}
         </div>
+
+        {/* Dynamic Live Cutoff Suggestions */}
+        {(() => {
+          const sub = rows.filter((r) => r.score !== null);
+          if (!sub.length) return null;
+          return (
+            <div style={{ marginTop: 14, paddingTop: 12, borderTop: '1px solid #222', display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+              <span className="muted small mono" style={{ marginRight: 4 }}>
+                ⚡ LIVE FINALE CUTOFFS ({sub.length} Submitted):
+              </span>
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm"
+                style={{ borderColor: 'var(--gold)', color: 'var(--gold)' }}
+                onClick={() => setThresholdInput(String(sub[0]?.score))}
+              >
+                🥇 Champion #1 (&ge; {sub[0]?.score} pts)
+              </button>
+              {sub.length >= 2 && (
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                  onClick={() => setThresholdInput(String(sub[1]?.score))}
+                >
+                  🥈 Top 2 (&ge; {sub[1]?.score} pts)
+                </button>
+              )}
+              {sub.length >= 3 && (
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                  onClick={() => setThresholdInput(String(sub[2]?.score))}
+                >
+                  🥉 Top 3 Podium (&ge; {sub[2]?.score} pts)
+                </button>
+              )}
+            </div>
+          );
+        })()}
         {error && <p className="error-text mt-8">{error}</p>}
       </div>
 

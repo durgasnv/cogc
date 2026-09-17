@@ -46,6 +46,10 @@ export async function POST(req) {
     await store.set(`teamname:${lookupKey}`, id);
   }
 
+  // Record live presence / login
+  await store.sadd('teams:logged_in', team.id);
+  await store.set(`team:${team.id}:last_active`, Date.now());
+
   const token = signSession({ role: 'team', id: team.id, name: team.name, ts: Date.now() });
   const res = NextResponse.json({ ok: true, team: { id: team.id, name: team.name } });
   res.cookies.set(TEAM_COOKIE, token, {

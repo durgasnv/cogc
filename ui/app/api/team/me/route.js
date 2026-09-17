@@ -7,6 +7,9 @@ export async function GET(req) {
   if (!session) return NextResponse.json({ error: 'Not logged in.' }, { status: 401 });
 
   const store = kv();
+  await store.sadd('teams:logged_in', session.id);
+  await store.set(`team:${session.id}:last_active`, Date.now());
+
   const phases = {};
   for (const phase of [1, 2, 3]) {
     const assignment = await store.get(`phase:${phase}:assignment:${session.id}`);

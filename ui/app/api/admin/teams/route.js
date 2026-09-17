@@ -33,13 +33,26 @@ export async function GET(req) {
   const store = kv();
   await ensureSeedTeams(store);
   const ids = await store.smembers('teams:index');
+  const loggedInIds = new Set((await store.smembers('teams:logged_in')) || []);
+
   const teams = [];
   for (const id of ids || []) {
     const t = await store.get(`team:${id}`);
-    if (t) teams.push(t);
+    if (t) {
+      const lastActive = await store.get(`team:${id}:last_active`);
+      teams.push({
+        ...t,
+        isLoggedIn: loggedInIds.has(id),
+        lastActive: lastActive || null,
+      });
+    }
   }
   teams.sort((a, b) => a.name.localeCompare(b.name));
-  return NextResponse.json({ teams });
+  return NextResponse.json({
+    teams,
+    totalCount: teams.length,
+    loggedInCount: teams.filter((t) => t.isLoggedIn).length,
+  });
 }
 
 export async function POST(req) {
